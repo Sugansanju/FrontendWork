@@ -8,6 +8,7 @@ import Index from '@/components/Index';
 import Login from '@/components/Login';
 import Teacher from '@/components/teacher/Index.vue';
 import TeacherClass from '@/components/teacher/Class.vue';
+import Institute from '@/components/Institute';
 
 Vue.use(VueRouter);
 
@@ -48,7 +49,12 @@ const routes = [
       meta: {
         requiresAuth: true
       }
-    }
+  },
+  {
+    path: '/institute',
+    name: 'Institute',
+    component: Institute
+  }
 ];
 const router=new VueRouter({routes});
 

@@ -54,9 +54,9 @@ import AccountApi from "@/services/api/Account"
         console.log('Session Destroyed');
         this.$session.clear();
         this.$session.destroy();
+        this.$router.replace(this.$route.query.redirect || '/')
         window.location.reload();
       },
-
     },
     data: function(){
       return{

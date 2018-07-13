@@ -1,9 +1,9 @@
 <template>
 <b-container>
-    <b-modal id="classSettingsModal" 
+    <b-modal id="classSettingsModal"
     hide-header
     hide-footer
-    no-close-on-backdrop 
+    no-close-on-backdrop
     no-close-on-esc
     centered
     v-model="showClassSettingsModal">
@@ -15,7 +15,7 @@
                 <button type="button" class="close" @click="showClassSettingsModal=false" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
                     <span aria-hidden="true">&times;</span>
                 </button>
-                </b-col>                
+                </b-col>
             </b-row>
             <b-row>
                 <b-col>
@@ -28,21 +28,21 @@
                     </b-tab>
                     <b-tab title="Teacher">
                         <teacher-tab></teacher-tab>
-                    </b-tab>                    
+                    </b-tab>
                   </b-tabs>
                 </b-col>
             </b-row>
         </b-container>
     </b-modal>
-</b-container>    
+</b-container>
 </template>
 <script>
 
-import ClassTab from "@/components/comp/modals/tabs/ClassTab.vue";  
-import StudentTab from "@/components/comp/modals/tabs/StudentTab.vue";  
-import TeacherTab from "@/components/comp/modals/tabs/TeacherTab.vue";  
+import ClassTab from "@/components/comp/modals/tabs/ClassTab.vue";
+import StudentTab from "@/components/comp/modals/tabs/StudentTab.vue";
+import TeacherTab from "@/components/comp/modals/tabs/TeacherTab.vue";
 
-export default {    
+export default {
     name: 'ClassSettingsModal',
     components:{
         ClassTab,
@@ -53,7 +53,7 @@ export default {
         return{
             showClassSettingsModal: false,
             classroomName:'',
-            classroomYear:0,       
+            classroomYear:0,
         }
     }
 };
@@ -96,7 +96,7 @@ export default {
 
     .modal-content {
         border-radius: 25px;
-    }    
+    }
 </style>
 
 

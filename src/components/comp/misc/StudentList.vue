@@ -10,10 +10,10 @@
                                 <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: var(--main-primary-color);"></i>
                             </div>
                             <div class="d-flex flex-column text-left">
-                                <div class="p-1 m-1"><strong>Add Student</strong></div>                                
+                                <div class="p-1 m-1"><strong>Add Student</strong></div>
                             </div>
                         </div>
-                    </b-list-group-item>    
+                    </b-list-group-item>
                 </b-list-group>
                <b-list-group v-for="item in listItems" v-bind:key="item.name">
                     <b-list-group-item  href="#" style="border: none;">
@@ -26,11 +26,11 @@
                                 <div class="p-0 m-0 control-text" style="color: #999;">{{item.contact}}</div>
                             </div>
                         </div>
-                    </b-list-group-item>    
-                </b-list-group>                
+                    </b-list-group-item>
+                </b-list-group>
             </b-container>
         </b-col>
-    </b-row>   
+    </b-row>
 </b-container>
 </template>
 <script>
@@ -39,7 +39,7 @@ export default {
     props:['listItems'],
     data:function(){
         return{
-            
+
         }
     }
 };

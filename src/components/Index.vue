@@ -48,15 +48,30 @@
                     type="password"
                     v-model="user.password"
                     placeholder="Password"> -->
+                    <div  v-if="primarylogin=='email'">
         <input  class="form-control input"
                 type="text"
-                placeholder="Email/Mobile"
+                placeholder="Email"
                 v-model="user.contact"
                 v-bind:class="{error: $v.user.contact.$error, valid: $v.user.contact.$dirty && !$v.user.contact.$invalid}">
             <div v-if="$v.user.contact.$dirty">
                   <p class="error-message" v-if="!$v.user.contact.required">Field is required</p>
                   <p class="error-message" v-if="!$v.user.contact.email">The input must be a proper email!</p>
            </div>
+                    </div>
+           <!-- <div v-if="primarylogin=='mobile'">
+              <input  class="form-control input"
+                type="text"
+                placeholder="Mobile"
+                v-model="user.phone"
+                v-bind:class="{error: $v.user.phone.$error, valid: $v.user.phone.$dirty && !$v.user.phone.$invalid}">
+            <div v-if="$v.user.phone.$dirty">
+                  <p class="error-message" v-if="!$v.user.phone.required">Field is required</p>
+                  <p class="error-message" v-if="!$v.user.phone.numeric">Numeric values</p>
+                  <p class="error-message" v-if="!$v.user.phone.minLength">Invalid</p>
+                  <p class="error-message" v-if="!$v.user.phone.maxLength">Invalid</p>
+           </div>
+             </div> -->
         <input  class="form-control input"
                 type="password"
                 placeholder="password"
@@ -72,6 +87,8 @@
            <div class="row">
               <div class="col-md-6"> </div>
                 <div class="col-md-6 float-right">
+                  <a class="btn-3" style="cursor:pointer;" v-if="primarylogin=='email'" @click="changeprimarylogin">Use Phone</a>
+                  <a class="btn-3" style="cursor:pointer;" v-if="primarylogin=='mobile'" @click="changeprimarylogin">Use Email</a>
                   <a href="#" class="btn btn-3">forgot password?</a>
                 </div>
           </div>
@@ -81,8 +98,8 @@
                   <b-link class="btn" v-b-modal.loginSignupModal>Signup</b-link>
                     <!-- <a class="btn btn-1 btn-white" @click="login(user)">login</a> -->
                   <!-- <a v-on:click.stop.prevent="submit" class="btn btn-1 btn-white" disabled="$v.user.$error" @click="$v.user.$touch()">login</a> -->
-                  <a class="btn btn-1 btn-white" disabled="$v.user.$error" @click="$v.user.$touch()">login</a>
-          <br>
+                  <a class="btn btn-1 btn-white" disabled="$v.user.$error" @click="login(user)">login</a>
+                     <br>
                  </div>
            </div>
 
@@ -109,7 +126,7 @@
   import LoginSignupModal from "@/components/comp/modals/LoginSignupModal.vue";
   import AccountApi from "@/services/api/Account";
   import Validate from "@/validator/ContactValidator";
-  import { required, minLength,email} from "vuelidate/lib/validators";
+  import { required, minLength,email,numeric,maxLength} from "vuelidate/lib/validators";
   export default {
     name: "Index",
     components: {
@@ -128,7 +145,13 @@
           password: {
                   required,
                  minLength: minLength(6)
-      }
+        },
+      //    phone: {
+      //      required,
+      //       numeric ,
+      //       minLength:minLength(10),
+      //       maxLength: maxLength(10),
+      // },
        }
      },
     updated() {
@@ -169,16 +192,41 @@
         });
       },
       login: function(user){
+
+        this.$v.$touch();
+       if (this.$v.$invalid){
+       console.log("error");
+       }
+      //   let email=/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
+
+      //   let mobile=/^[2-9]\d{2}-\d{3}-\d{4}$/;
+
+      //  if(this.user.contact==''||this.user.contact==null){
+
+      //    alert(this.error='Field required');
+
+      //   }elseif(email.test(this.user.contact)==false){
+
+      //     alert(this.error='Invalid Email');
+
+      //   }elseif(mobile.test(this.user.contact)==false){
+
+      //     alert(this.error='Invalid Phone Number');
+      //   }
+        else{
         AccountApi.login(user).then((response)=>{
           console.log(response);
           this.$session.start();
           this.$session.set('access_token', response.data.access_token);
           this.$session.set('refresh_token', response.data.refresh_token);
           this.$session.set('contact', user.contact);
+          // this.$router.replace(this.$route.query.redirect || '/institute');
           this.getUserInfo();
+          this.$router.replace(this.$route.query.redirect || '/institute');
         }).catch((err) => {
           console.log(err);
         });
+       }
       },
       onPageRefresh: function () {
         console.log('Page Refreshing', this.$session.exists('refresh_token'));
@@ -193,6 +241,13 @@
           });
         }
       },
+      changeprimarylogin(){
+            if(this.primarylogin=='email'){
+                this.primarylogin='mobile'
+            }else{
+                this.primarylogin='email'
+            }
+        },
     //   validate : function(){
     //   this.emailBlured = true;
     //    if( this.validEmail(this.email)){
@@ -213,6 +268,8 @@
     data() {
       return {
         info: null,
+        primarylogin:'email',
+        phone:'',
         user: {
           contact: '',
           password: '',
@@ -245,7 +302,6 @@
     border-radius: 25px;
     background-color: #eee;
   }
-
   .btn-1 {
     color: #000;
     border-radius: 20px;
@@ -292,5 +348,8 @@
 .error-focus{
   border-color:red;
 }
+/* .valid{
+  border-color:lawngreen;
+} */
 </style>
 
