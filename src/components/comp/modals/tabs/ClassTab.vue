@@ -2,44 +2,44 @@
 <b-container fluid>
     <b-form>
     <b-row style="margin-top: 25px; ">
-        <b-col>      
+        <b-col>
             <avatar-selector :avatars="avatars" :default-avatar="defaultAvatar"></avatar-selector>
         </b-col>
     </b-row>
     <b-row style="padding-top: 25px;">
         <b-col>
             <span>Class Name</span>
-        </b-col>                                
+        </b-col>
         <b-col cols="8">
-            <b-form-input id="classroomName" v-model="classroomName"  type="text" required></b-form-input>                 
+            <b-form-input id="classroomName" v-model="classroomName"  type="text" required></b-form-input>
         </b-col>
     </b-row>
     <b-row  style="padding-top: 25px;">
         <b-col>
             <span>Year</span>
-        </b-col>                                
+        </b-col>
         <b-col cols="8">
             <b-form-select id="classroomYear" v-model="classroomYear" :options="years" required>
                 <template slot="first">
                     <option value="0">Select Year</option>
-                </template>                                                                                
-            </b-form-select>                 
+                </template>
+            </b-form-select>
         </b-col>
-    </b-row>                            
+    </b-row>
     <b-row>
         <b-col>
         <hr>
         <div class="float-right">
             <button class="btn btn-1 border" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Reset</button>
             <button class="btn btn-1 btn-2 px-2">Save</button>
-        </div>                  
+        </div>
         </b-col>
     </b-row>
     </b-form>
-</b-container>    
+</b-container>
 </template>
 <script>
-import AvatarSelector from "@/components/comp/misc/AvatarSelector.vue";  
+import AvatarSelector from "@/components/comp/misc/AvatarSelector.vue";
 export default {
     name: 'ClassTab',
     components:{
@@ -58,7 +58,7 @@ export default {
                 // 'physics.png',
                 // 'chemistry.png',
                 // 'maths.png',
-            ],            
+            ],
             years:[
                 {value: 1, text: 'Year 1'},
                 {value: 2, text: 'Year 2'},
@@ -74,7 +74,7 @@ export default {
                 {value: 12, text: 'Year 12'},
             ],
             classroomName:'',
-            classroomYear:0, 
+            classroomYear:0,
         }
     }
 }

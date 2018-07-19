@@ -9,6 +9,9 @@ import store from './store';
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate);
 
+// import VueSweetalert2 from 'vue-sweetalert2';
+// Vue.use(VueSweetalert2);
+
 import VueSession from 'vue-session';
 Vue.use(VueSession, {
   persist: true

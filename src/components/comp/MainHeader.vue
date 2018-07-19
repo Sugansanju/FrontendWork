@@ -36,6 +36,7 @@
 <script>
 import ProfileSettingsModal from "@/components/comp/modals/ProfileSettingsModal.vue"
 import OtpModal from "@/components/comp/modals/OtpModal.vue"
+import swal from "sweetalert2";
 import AccountApi from "@/services/api/Account"
   export default{
     name: 'MainHeader',
@@ -45,6 +46,16 @@ import AccountApi from "@/services/api/Account"
     },
     methods:{
       logout: function(){
+        const toast = swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer:5000
+        });
+        toast({
+          type: "success",
+          title: "Signed Out successfully"
+        });
         console.log(this.$session.id());
         AccountApi.logout(this.$session.get('access_token')).then((result) => {
           console.log(result);

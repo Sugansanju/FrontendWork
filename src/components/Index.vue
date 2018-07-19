@@ -48,7 +48,7 @@
                     type="password"
                     v-model="user.password"
                     placeholder="Password"> -->
-                    <div  v-if="primarylogin=='email'">
+ <!--
         <input  class="form-control input"
                 type="text"
                 placeholder="Email"
@@ -58,21 +58,17 @@
                   <p class="error-message" v-if="!$v.user.contact.required">Field is required</p>
                   <p class="error-message" v-if="!$v.user.contact.email">The input must be a proper email!</p>
            </div>
-                    </div>
-           <!-- <div v-if="primarylogin=='mobile'">
-              <input  class="form-control input"
+ -->
+
+ <input  class="form-control input"
                 type="text"
-                placeholder="Mobile"
-                v-model="user.phone"
-                v-bind:class="{error: $v.user.phone.$error, valid: $v.user.phone.$dirty && !$v.user.phone.$invalid}">
-            <div v-if="$v.user.phone.$dirty">
-                  <p class="error-message" v-if="!$v.user.phone.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.user.phone.numeric">Numeric values</p>
-                  <p class="error-message" v-if="!$v.user.phone.minLength">Invalid</p>
-                  <p class="error-message" v-if="!$v.user.phone.maxLength">Invalid</p>
-           </div>
-             </div> -->
-        <input  class="form-control input"
+                placeholder="Email/Mobile"
+                v-model="user.contact">
+        <!-- <input  class="form-control input"
+                type="password"
+                placeholder="password"
+                v-model="user.password"> -->
+           <input  class="form-control input"
                 type="password"
                 placeholder="password"
                 v-model="user.password"
@@ -82,13 +78,9 @@
                   <p class="error-message" v-if="!$v.user.password.minLength">Minimum 6 Characters</p>
            </div>
     <br/>
-     <!-- <input class="form-control input" type="text" v-model="user.contact" placeholder="Email/phone" required>
-              <input class="form-control input" type="password" v-model="user.password" placeholder="Password" required> -->
            <div class="row">
               <div class="col-md-6"> </div>
                 <div class="col-md-6 float-right">
-                  <a class="btn-3" style="cursor:pointer;" v-if="primarylogin=='email'" @click="changeprimarylogin">Use Phone</a>
-                  <a class="btn-3" style="cursor:pointer;" v-if="primarylogin=='mobile'" @click="changeprimarylogin">Use Email</a>
                   <a href="#" class="btn btn-3">forgot password?</a>
                 </div>
           </div>
@@ -96,17 +88,10 @@
               <div class="col-md-6"> </div>
                 <div class="col-md-6 float-right">
                   <b-link class="btn" v-b-modal.loginSignupModal>Signup</b-link>
-                    <!-- <a class="btn btn-1 btn-white" @click="login(user)">login</a> -->
-                  <!-- <a v-on:click.stop.prevent="submit" class="btn btn-1 btn-white" disabled="$v.user.$error" @click="$v.user.$touch()">login</a> -->
                   <a class="btn btn-1 btn-white" disabled="$v.user.$error" @click="login(user)">login</a>
                      <br>
                  </div>
            </div>
-
-    <!-- <div v-else class="alert alert-success" role="alert">
-      <h5>Thank you</h5>
-      <p>Your validation was a success!</p>
-    </div> -->
             </div>
           </div>
         </b-col>
@@ -118,173 +103,199 @@
 </template>
 
 <script>
-  // import store from '../store'
-  import MainHeader from "@/components/comp/MainHeader.vue";
-  import CoverBanner from "@/components/comp/CoverBanner.vue";
-  // import SubMenu from "@/components/comp/SubMenu.vue";
-  import PageFooter from "@/components/comp/PageFooter.vue";
-  import LoginSignupModal from "@/components/comp/modals/LoginSignupModal.vue";
-  import AccountApi from "@/services/api/Account";
-  import Validate from "@/validator/ContactValidator";
-  import { required, minLength,email,numeric,maxLength} from "vuelidate/lib/validators";
-  export default {
-    name: "Index",
-    components: {
-      MainHeader,
-      CoverBanner,
-      // SubMenu,
-      PageFooter,
-      LoginSignupModal,
-    },
-     validations: {
-       user:{
-         contact:{
-           required,
-           email
-         },
-          password: {
-                  required,
-                 minLength: minLength(6)
-        },
-      //    phone: {
-      //      required,
-      //       numeric ,
-      //       minLength:minLength(10),
-      //       maxLength: maxLength(10),
-      // },
-       }
-     },
-    updated() {
-      // this.checkCurrentLogin();
-    },
-    created() {
-      // this.checkCurrentLogin();
-      this.onPageRefresh();
-    },
-    methods: {
-      checkCurrentLogin: function () {
-        if (this.$session.exists('current_user')) {
-          this.$router.replace(this.$route.query.redirect || '/teachers')
-        }
-        console.log('Check..')
+import MainHeader from "@/components/comp/MainHeader.vue";
+import CoverBanner from "@/components/comp/CoverBanner.vue";
+import PageFooter from "@/components/comp/PageFooter.vue";
+import LoginSignupModal from "@/components/comp/modals/LoginSignupModal.vue";
+import AccountApi from "@/services/api/Account";
+import Validator from "@/validator/ContactValidator";
+import swal from "sweetalert2";
+// import Validate from "@/validator/ContactValidator";
+import { required, minLength,email,numeric,maxLength} from "vuelidate/lib/validators";
+export default {
+  name: "Index",
+  components: {
+    MainHeader,
+    CoverBanner,
+    PageFooter,
+    LoginSignupModal
+  },
+   validations: {
+     user:{
+       contact:{
+         required,
+         email
+       },
+        password: {
+                required,
+               minLength: minLength(6)
       },
-      getUserInfo: function () {
-        if (this.$session.exists('contact')) {
-          AccountApi.getUserInfo(this.$session.get('contact')).then((result) => {
-            this.$session.set('current_user', result.data);
-            console.log('Current user in session', this.$session.get('current_user'));
+  //    phone: {
+  //      required,
+  //       numeric ,
+  //       minLength:minLength(10),
+  //       maxLength: maxLength(10),
+  // },
+     }
+   },
+  updated() {
+    // this.checkCurrentLogin();
+  },
+  created() {
+    // this.checkCurrentLogin();
+    this.onPageRefresh();
+  },
+  methods: {
+    checkCurrentLogin: function() {
+      if (this.$session.exists("current_user")) {
+        this.$router.replace(this.$route.query.redirect || "/teachers");
+      }
+      console.log("Check..");
+    },
+    getUserInfo: function() {
+      if (this.$session.exists("contact")) {
+        AccountApi.getUserInfo(this.$session.get("contact"))
+          .then(result => {
+            this.$session.set("current_user", result.data);
+            console.log(
+              "Current user in session",
+              this.$session.get("current_user")
+            );
             window.location.reload();
-          }).catch((err) => {
+          })
+          .catch(err => {
             console.log(err);
           });
-        }
-      },
-      check: function () {
-        axios(
-          {
-            method: 'get',
-            url: 'user/',
-          }
-        ).then((result) => {
+      }
+    },
+    check: function() {
+      axios({
+        method: "get",
+        url: "user/"
+      })
+        .then(result => {
           console.log(result);
-        }).catch((err) => {
+        })
+        .catch(err => {
           console.log(err);
         });
-      },
-      login: function(user){
+    },
+    login: function(user) {
+      //   this.$v.$touch();
+      //  if (this.$v.$invalid){
+      //  console.log("error");
+      //  }
 
-        this.$v.$touch();
-       if (this.$v.$invalid){
-       console.log("error");
-       }
       //   let email=/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
 
-      //   let mobile=/^[2-9]\d{2}-\d{3}-\d{4}$/;
+      //   let mobile=/^([0-9]{10})|(\([0-9]{3}\)+[0-9]{3}\-[0-9]{4})$/;
 
       //  if(this.user.contact==''||this.user.contact==null){
 
       //    alert(this.error='Field required');
 
-      //   }elseif(email.test(this.user.contact)==false){
-
-      //     alert(this.error='Invalid Email');
-
-      //   }elseif(mobile.test(this.user.contact)==false){
-
-      //     alert(this.error='Invalid Phone Number');
+      //   } else if(this.user.contact){
+      //       if(email.test(this.user.contact)==false){
+      //         alert(this.error='Invalid Email');
+      //       }else{
+      //         if(mobile.test(this.user.contact)==false){
+      //           alert(this.error='Invalid Phone Number');
+      //         }
+      //       }
       //   }
-        else{
-        AccountApi.login(user).then((response)=>{
-          console.log(response);
-          this.$session.start();
-          this.$session.set('access_token', response.data.access_token);
-          this.$session.set('refresh_token', response.data.refresh_token);
-          this.$session.set('contact', user.contact);
-          // this.$router.replace(this.$route.query.redirect || '/institute');
-          this.getUserInfo();
-          this.$router.replace(this.$route.query.redirect || '/institute');
-        }).catch((err) => {
-          console.log(err);
-        });
-       }
-      },
-      onPageRefresh: function () {
-        console.log('Page Refreshing', this.$session.exists('refresh_token'));
-        if (this.$session.exists('refresh_token')) {
-          console.log('Refresh token available', this.$session.get('refresh_token'));
-          AccountApi.getAccessToken(this.$session.get('refresh_token')).then((response) => {
+      // else if(email.test(this.user.contact)==false){
+
+      //   alert(this.error='Invalid Email');
+      // }
+      // else if(mobile.test(this.user.contact)==false){
+
+      //   alert(this.error='Invalid Phone Number');
+      // }
+      if ( !Validator.isValidEmail(this.user.contact) &&!Validator.isValidPhone(this.user.contact)) {
+        if (this.user.contact == "" || this.user.contact == null) {
+          swal({
+            type: "error",
+            title: "field required..."
+          });
+        } else {
+          swal({
+            type: "error",
+            title: "Invalid...",
+            text: "Please enter valid email/phone"
+          });
+          return false;
+        }
+      } else {
+        AccountApi.login(user)
+          .then(response => {
             console.log(response);
-            this.$session.set('access_token', response.data.access_token);
-            this.$session.set('refresh_token', response.data.refresh_token);
-          }).catch((err) => {
+            this.$session.start();
+            this.$session.set("access_token", response.data.access_token);
+            this.$session.set("refresh_token", response.data.refresh_token);
+            this.$session.set("contact", user.contact);
+            // this.$router.replace(this.$route.query.redirect || '/institute');
+
+            const toast = swal.mixin({
+              toast: true,
+              position: "top",
+              showConfirmButton: false,
+              timer: 5000
+            });
+            toast({
+              type: "success",
+              title: "Signed in successfully"
+            });
+            this.getUserInfo();
+            this.$router.replace(this.$route.query.redirect || "/institute");
+          })
+          .catch(err => {
+            console.log(err);
+            swal({
+              type: "error",
+              title: "Incorrect"
+            });
+            return false;
+          });
+      }
+    },
+    onPageRefresh: function() {
+      console.log("Page Refreshing", this.$session.exists("refresh_token"));
+      if (this.$session.exists("refresh_token")) {
+        console.log(
+          "Refresh token available",
+          this.$session.get("refresh_token")
+        );
+        AccountApi.getAccessToken(this.$session.get("refresh_token"))
+          .then(response => {
+            console.log(response);
+            this.$session.set("access_token", response.data.access_token);
+            this.$session.set("refresh_token", response.data.refresh_token);
+          })
+          .catch(err => {
             console.log(err);
           });
-        }
-      },
-      changeprimarylogin(){
-            if(this.primarylogin=='email'){
-                this.primarylogin='mobile'
-            }else{
-                this.primarylogin='email'
-            }
-        },
-    //   validate : function(){
-    //   this.emailBlured = true;
-    //    if( this.validEmail(this.email)){
-    //       this.valid = true;
-    //    }
-    // },
-    // validEmail : function(email) {
-    //     var re = /(.+)@(.+){2,}\.(.+){2,}/;
-    //     return re.test(email.toLowerCase());
-    // },
-    // submit : function(){
-    //     this.validate();
-    //     if(this.valid){
-    //       this.submitted = true;
-    //     }
-    //   }
-    },
-    data() {
-      return {
-        info: null,
-        primarylogin:'email',
-        phone:'',
-        user: {
-          contact: '',
-          password: '',
-        }
-      };
+      }
     }
-  };
+  },
+  data() {
+    return {
+      info: null,
+      phone: "",
+      user: {
+        contact: "",
+        password: ""
+      }
+    };
+  }
+};
 </script>
 <style scoped>
-  .card-style {
-    box-shadow: 1px 1px #888888;
-    border-radius: 25px;
-  }
+.card-style {
+  box-shadow: 1px 1px #888888;
+  border-radius: 25px;
+}
 
-  /*.nav {
+/*.nav {
     height: 70px;
     width: 100%;
     background-color: #ffffff;
@@ -294,59 +305,59 @@
     fill: #fff;
     background: #fff;
   }*/
-  .input {
-    font-size: 15px;
-    margin: 15px 0;
-    padding: 10px 20px;
-    border-color: none;
-    border-radius: 25px;
-    background-color: #eee;
-  }
-  .btn-1 {
-    color: #000;
-    border-radius: 20px;
-    /* box-shadow: 2px 2px #000; */
-    box-shadow: 2px 2px 3px 1px #000;
-    font-size: 18px;
-    margin: auto;
-  }
+.input {
+  font-size: 15px;
+  margin: 15px 0;
+  padding: 10px 20px;
+  border-color: none;
+  border-radius: 25px;
+  background-color: #eee;
+}
+.btn-1 {
+  color: #000;
+  border-radius: 20px;
+  /* box-shadow: 2px 2px #000; */
+  box-shadow: 2px 2px 3px 1px #000;
+  font-size: 18px;
+  margin: auto;
+}
 
-  .btn-1:hover {
-    background: #68b8b6;
-    color: #fff;
-    box-shadow: 1px 1px 1px 1px #000;
-  }
+.btn-1:hover {
+  background: #68b8b6;
+  color: #fff;
+  box-shadow: 1px 1px 1px 1px #000;
+}
 
-  a {
-    color: #68b8b6;
-  }
+a {
+  color: #68b8b6;
+}
 
-  a:hover {
-    color: #b8bbbb;
-  }
+a:hover {
+  color: #b8bbbb;
+}
 
-  .btn-3 {
-    color: #b8bbbb;
-  }
-  .error-message {
-  color:red;
+.btn-3 {
+  color: #b8bbbb;
+}
+.error-message {
+  color: red;
   font-size: 13px;
   margin: 5px 0 0 5px;
 }
 .form-wrap {
-  padding-top:35px;
+  padding-top: 35px;
 }
 .alert {
-  padding-top:1.5rem;
+  padding-top: 1.5rem;
 }
 .alert h5 {
-  margin-bottom:0.0rem;
+  margin-bottom: 0rem;
 }
 .error {
   border-color: red;
 }
-.error-focus{
-  border-color:red;
+.error-focus {
+  border-color: red;
 }
 /* .valid{
   border-color:lawngreen;
