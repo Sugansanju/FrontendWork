@@ -5,15 +5,21 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    instituteDetails: [],
   },
-  // mutations:{
-  //   updateRefreshTokens: function(state, response){
-  //     console.log('Store Mutation', state);
-  //     axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
-  //     state.accessToken = response.data.access_token;
-  //     state.refreshToken=response.data.refresh_token;
-  //   }
-  // }
+  actions: {
+    addInstituteDetail(context, data) {
+      console.log('action method called', data);
+      // return new Promise((resolve, reject) => {
+      context.commit('updateDetails', data);
+      // });
+    },
+  },
+  mutations: {
+    updateDetails: function (state, data) {
+      console.log('mutation method called', data);
+      state.instituteDetails.push(data);
+    }
+  },
 });
 export default store;

@@ -34,25 +34,38 @@
     },
     data() {
       return {
-         details:[],
-         defaultInstitute:[
-          {
-            image:'institute-building.png',
-            institutename:'Anna University',
-            nostaff:'20',
-            nostudent:'35',
-            noparent:'10',
-            feedscount:'8',
-            chatscount:'6',
-            likescount:'5'
-            },
-            ],
-        // defaultInstitute:[{image:'institute-building.png',institutename:'Anna University',nostaff:'20',nostudent:'35',noparent:'10'},]
+        //  details:[],
+        details: [
+            this.$store.state.instituteDetails
+        ],
+        //  defaultInstitute:[
+        //   {
+        //     image:'institute-building.png',
+        //     institutename:'Anna University',
+        //     nostaff:'20',
+        //     nostudent:'35',
+        //     noparent:'10',
+        //     feedscount:'8',
+        //     chatscount:'6',
+        //     likescount:'5'
+        //     },
+        //     ],
         }
     },
+
     mounted(){
+      console.log('mounted Calling');
+      console.log(this.$store.state.instituteDetails);
+
     // this.details.push(this.defaultInstitute);
-     }
+    // this.details.push(this.defaultInstitute);
+    // this.details.push(this.defaultInstitute);
+    // this.details.push(this.defaultInstitute);
+    // this.details.push(this.defaultInstitute);
+    // this.details.push(this.defaultInstitute);
+    // this.details.push(this.defaultInstitute);
+    // this.details.push(this.defaultInstitute);
+ }
   };
 </script>
 <style scoped>

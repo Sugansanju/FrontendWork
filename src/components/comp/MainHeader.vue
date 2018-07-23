@@ -19,9 +19,6 @@
             <b-dropdown-item v-b-modal.profileSettingsModal>
                 <i class="fa fa-user" aria-hidden="true"></i> Profile
             </b-dropdown-item>
-            <!-- <b-dropdown-item v-b-modal.otpModal>
-              <i class="fa fa-sign-out" aria-hidden="true"></i> Signout
-            </b-dropdown-item> -->
             <b-dropdown-item @click="logout">
               <i class="fa fa-sign-out" aria-hidden="true"></i> Signout
             </b-dropdown-item>
@@ -50,7 +47,7 @@ import AccountApi from "@/services/api/Account"
           toast: true,
           position: "top",
           showConfirmButton: false,
-          timer:5000
+          timer:50000
         });
         toast({
           type: "success",
@@ -110,16 +107,6 @@ import AccountApi from "@/services/api/Account"
   color: var(--main-primary-color);
 }
 ::-webkit-scrollbar {
-  display: none;
-}
-
-/*::-moz-scrollbars-horizontal {
     display: none;
 }
-::-moz-scrollbars-vertical{
-    display: none;
-}
-html{
-  overflow: -moz-scrollbars-none;
-}*/
 </style>

@@ -1,13 +1,15 @@
 <template>
 <!-- <b-container> -->
       <b-col cols="4">
-        <b-row>
+        <b-row v-for="item in details" v-bind:key="item.institutename">
         <div class="institute-card">
-          <b-row v-for="item in details" v-bind:key="item.institutename">
+          <b-row >
               <div class="institute-img">
-                 <b-img :src="'/static/images/'+item.image"/>
+                <b-img src="/static/images/institute-building.png" />
+                 <!-- <b-img :src="'/static/images/'+item.image"/> -->
               </div>
-        <h1>{{item.institutename}}</h1>
+       <div> <h1>{{item.institutename}}</h1></div>
+       <b-row>
         <div class="staff-stats">
             <strong>{{item.nostaff}}</strong>
             <br> Staff
@@ -20,9 +22,11 @@
             <strong>{{item.noparent}}</strong>
             <br> Parent
         </div>
+       </b-row>
           </b-row>
 
-    <b-row align-h="end" style="padding-right:10px;" v-for="item in details" v-bind:key="item">
+    <!-- <b-row align-h="end" style="padding-right:10px;" v-for="item in details" v-bind:key="item"> -->
+      <b-row align-h="end" style="padding-right:10px;">
         <!-- <div class="float-right"> -->
         <div class="feeds-badge">
             <div class="feeds-bubble">
@@ -51,6 +55,7 @@
 export default {
   name: "InstituteCard",
   props: ["details"],
+
   data() {
     return {};
   }
@@ -160,24 +165,4 @@ export default {
   padding: 10px 10px 10px 10px;
   margin-top: -60px;
 }
-/* .card {
-  height: 200px;
-  width: 350px;
-  margin: 10px 10px 10px 10px;
-  padding: 5px 5px 5px 5px;
-  text-align: left;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease-in-out;
-}
-.content {
-  margin-top: 20px;
-  padding: 0 0 0 0;
-}
-.card-content {
-  font-size: 20px;
-  margin-left: 9px;
-  float: left;
-  text-align: center;
-} */
 </style>

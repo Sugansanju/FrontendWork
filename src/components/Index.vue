@@ -48,22 +48,20 @@
                     type="password"
                     v-model="user.password"
                     placeholder="Password"> -->
- <!--
+
         <input  class="form-control input"
                 type="text"
-                placeholder="Email"
+                placeholder="Email/Mobile"
                 v-model="user.contact"
                 v-bind:class="{error: $v.user.contact.$error, valid: $v.user.contact.$dirty && !$v.user.contact.$invalid}">
             <div v-if="$v.user.contact.$dirty">
                   <p class="error-message" v-if="!$v.user.contact.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.user.contact.email">The input must be a proper email!</p>
+                   <p class="error-message" v-if="$v.user.contact.required && !$v.user.contact.validateContact">Invalid</p>
            </div>
- -->
-
- <input  class="form-control input"
+ <!-- <input  class="form-control input"
                 type="text"
                 placeholder="Email/Mobile"
-                v-model="user.contact">
+                v-model="user.contact"> -->
         <!-- <input  class="form-control input"
                 type="password"
                 placeholder="password"
@@ -110,8 +108,8 @@ import LoginSignupModal from "@/components/comp/modals/LoginSignupModal.vue";
 import AccountApi from "@/services/api/Account";
 import Validator from "@/validator/ContactValidator";
 import swal from "sweetalert2";
-// import Validate from "@/validator/ContactValidator";
-import { required, minLength,email,numeric,maxLength} from "vuelidate/lib/validators";
+import { required, minLength} from "vuelidate/lib/validators";
+import validateContact from "@/validator/ValidateContact";
 export default {
   name: "Index",
   components: {
@@ -123,19 +121,14 @@ export default {
    validations: {
      user:{
        contact:{
+        validateContact,
          required,
-         email
+
        },
         password: {
                 required,
                minLength: minLength(6)
       },
-  //    phone: {
-  //      required,
-  //       numeric ,
-  //       minLength:minLength(10),
-  //       maxLength: maxLength(10),
-  // },
      }
    },
   updated() {
@@ -181,51 +174,11 @@ export default {
         });
     },
     login: function(user) {
-      //   this.$v.$touch();
-      //  if (this.$v.$invalid){
-      //  console.log("error");
-      //  }
-
-      //   let email=/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-
-      //   let mobile=/^([0-9]{10})|(\([0-9]{3}\)+[0-9]{3}\-[0-9]{4})$/;
-
-      //  if(this.user.contact==''||this.user.contact==null){
-
-      //    alert(this.error='Field required');
-
-      //   } else if(this.user.contact){
-      //       if(email.test(this.user.contact)==false){
-      //         alert(this.error='Invalid Email');
-      //       }else{
-      //         if(mobile.test(this.user.contact)==false){
-      //           alert(this.error='Invalid Phone Number');
-      //         }
-      //       }
-      //   }
-      // else if(email.test(this.user.contact)==false){
-
-      //   alert(this.error='Invalid Email');
-      // }
-      // else if(mobile.test(this.user.contact)==false){
-
-      //   alert(this.error='Invalid Phone Number');
-      // }
-      if ( !Validator.isValidEmail(this.user.contact) &&!Validator.isValidPhone(this.user.contact)) {
-        if (this.user.contact == "" || this.user.contact == null) {
-          swal({
-            type: "error",
-            title: "field required..."
-          });
-        } else {
-          swal({
-            type: "error",
-            title: "Invalid...",
-            text: "Please enter valid email/phone"
-          });
-          return false;
-        }
-      } else {
+        this.$v.$touch();
+       if (this.$v.$invalid){
+       console.log("error");
+       }
+      else {
         AccountApi.login(user)
           .then(response => {
             console.log(response);
@@ -233,26 +186,24 @@ export default {
             this.$session.set("access_token", response.data.access_token);
             this.$session.set("refresh_token", response.data.refresh_token);
             this.$session.set("contact", user.contact);
-            // this.$router.replace(this.$route.query.redirect || '/institute');
-
             const toast = swal.mixin({
               toast: true,
               position: "top",
               showConfirmButton: false,
-              timer: 5000
+              timer: 8000
             });
             toast({
               type: "success",
               title: "Signed in successfully"
             });
-            this.getUserInfo();
-            this.$router.replace(this.$route.query.redirect || "/institute");
+             this.getUserInfo();
+             this.$router.replace(this.$route.query.redirect || "/institute");
           })
           .catch(err => {
             console.log(err);
             swal({
               type: "error",
-              title: "Incorrect"
+              title: "Bad credentials"
             });
             return false;
           });
