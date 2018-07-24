@@ -12,43 +12,6 @@
         <b-col style="margin-top: 10%">
           <div class="card card-style">
             <div class="card-body text-center">
-
-               <!-- <input class="form-control input"
-                     type="text"
-                     v-model="user.contact"
-                       @input="$v.email.$touch()"
-                     placeholder="Email/phone"
-                     v-model.trim="email">
-
-              <input class="form-control input"
-                    type="password"
-                    v-model="user.password"
-                    placeholder="Password">
-
-              <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6 float-right">
-                  <a href="#" class="btn btn-3">forgot password?</a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6 float-right">
-
-                  <b-link class="btn" v-b-modal.loginSignupModal>Signup</b-link>
-                  <a class="btn btn-1 btn-white" @click="submit">login</a>
-                           <br>
-
-                </div>
-              </div>
-              </form> -->
-      <!-- <input class="form-control input"
-                    type="password"
-                    v-model="user.password"
-                    placeholder="Password"> -->
-
         <input  class="form-control input"
                 type="text"
                 placeholder="Email/Mobile"
@@ -58,14 +21,6 @@
                   <p class="error-message" v-if="!$v.user.contact.required">Field is required</p>
                    <p class="error-message" v-if="$v.user.contact.required && !$v.user.contact.validateContact">Invalid</p>
            </div>
- <!-- <input  class="form-control input"
-                type="text"
-                placeholder="Email/Mobile"
-                v-model="user.contact"> -->
-        <!-- <input  class="form-control input"
-                type="password"
-                placeholder="password"
-                v-model="user.password"> -->
            <input  class="form-control input"
                 type="password"
                 placeholder="password"
@@ -106,7 +61,6 @@ import CoverBanner from "@/components/comp/CoverBanner.vue";
 import PageFooter from "@/components/comp/PageFooter.vue";
 import LoginSignupModal from "@/components/comp/modals/LoginSignupModal.vue";
 import AccountApi from "@/services/api/Account";
-import Validator from "@/validator/ContactValidator";
 import swal from "sweetalert2";
 import { required, minLength} from "vuelidate/lib/validators";
 import validateContact from "@/validator/ValidateContact";

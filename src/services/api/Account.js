@@ -51,7 +51,21 @@ export default {
         return response;
     });
   },
-
+   createInstitute(uuid, data) {
+    console.log(axios.defaults.headers,"authorization code")
+    return axios({
+      method: 'post',
+      url: 'institute/create/' + uuid,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        data
+      }
+    }).then((response) => {
+      return response;
+    });
+  },
   logout(accessToken){
     return axios({
       method: 'post',

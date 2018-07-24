@@ -1,8 +1,8 @@
 <template>
 <!-- <b-container> -->
       <b-col cols="4">
-        <b-row v-for="item in details" v-bind:key="item.institutename">
-        <div class="institute-card">
+        <b-row v-for="(item,index) in details" v-bind:key="index">
+        <div class="institute-card" @click="redirect">
           <b-row >
               <div class="institute-img">
                 <b-img src="/static/images/institute-building.png" />
@@ -48,7 +48,7 @@
           </div>
         </b-row>
       </b-col>
-<!-- </b-container> -->
+  <!-- </b-container> -->
 </template>
 
 <script>
@@ -58,6 +58,12 @@ export default {
 
   data() {
     return {};
+  },
+  methods:{
+     redirect() {
+       console.log("call");
+        this.$router.replace(this.$route.query.redirect || "/teacher");
+    }
   }
 };
 </script>
@@ -72,6 +78,7 @@ export default {
   margin-top:45px;
   height: 150px;
   border-radius:9px;
+  cursor: pointer;
   box-shadow: 5px 8px 25px 5px #888888;
   padding: 10px 10px 10px 10px;
 }

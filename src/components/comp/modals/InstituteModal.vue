@@ -25,38 +25,19 @@
                 <div class="input-group mb-3">
                 <div class="input-group-prepend" >
                     <span class="input-group-text" style="border-radius: 50px 0px 0px 50px;">
-                      <i class="fa fa-university" aria-hidden="true"></i>
+                      <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                     </span>
                 </div>
                   <input type="text"
                          class="form-control"
                          placeholder="Institute Name"
-                         v-model="instituteData.institutename"
+                         v-model="instituteData.name"
                          style="border-radius:  0px 50px 50px 0px;"
-                         v-bind:class="{error: $v.instituteData.institutename.$error, valid: $v.instituteData.institutename.$dirty && !$v.instituteData.institutename.$invalid}">
+                         v-bind:class="{error: $v.instituteData.name.$error, valid: $v.instituteData.name.$dirty && !$v.instituteData.name.$invalid}">
                 </div>
-                <div class="mb-3" v-if="$v.instituteData.institutename.$dirty">
-                  <p class="error-message" v-if="!$v.instituteData.institutename.required">Field is required</p>
+                <div class="mb-3" v-if="$v.instituteData.name.$dirty">
+                  <p class="error-message" v-if="!$v.instituteData.name.required">Field is required</p>
            </div>
-              </b-col>
-          </b-row>
-          <b-row>
-              <b-col>
-                <div class="input-group mb-3">
-                <div class="input-group-prepend" >
-                    <span class="input-group-text" style="border-radius: 50px 0px 0px 50px;">
-                      <i class="fa fa-address-card" aria-hidden="true"></i></span>
-                </div>
-                  <input type="text"
-                         class="form-control"
-                         placeholder="Address"
-                         v-model="instituteData.address"
-                         style="border-radius:  0px 50px 50px 0px;"
-                         v-bind:class="{error: $v.instituteData.address.$error, valid: $v.instituteData.address.$dirty && !$v.instituteData.address.$invalid}">
-                </div>
-                 <div class="mb-3" v-if="$v.instituteData.address.$dirty">
-                  <p class="error-message" v-if="!$v.instituteData.address.required">Field is required</p>
-                </div>
               </b-col>
           </b-row>
            <b-row>
@@ -70,12 +51,12 @@
                   <input type="text"
                          class="form-control"
                          placeholder="Street"
-                         v-model="instituteData.street"
+                         v-model="instituteData.address.street"
                          style="border-radius:  0px 50px 50px 0px;"
-                         v-bind:class="{error: $v.instituteData.street.$error, valid: $v.instituteData.street.$dirty && !$v.instituteData.street.$invalid}">
+                         v-bind:class="{error: $v.instituteData.address.street.$error, valid: $v.instituteData.address.street.$dirty && !$v.instituteData.address.street.$invalid}">
                 </div>
-                 <div class="mb-3" v-if="$v.instituteData.street.$dirty">
-                  <p class="error-message" v-if="!$v.instituteData.street.required">Field is required</p>
+                 <div class="mb-3" v-if="$v.instituteData.address.street.$dirty">
+                  <p class="error-message" v-if="!$v.instituteData.address.street.required">Field is required</p>
                 </div>
               </b-col>
           </b-row>
@@ -90,12 +71,12 @@
                   <input type="text"
                          class="form-control"
                          placeholder="City"
-                         v-model="instituteData.city"
+                         v-model="instituteData.address.city"
                          style="border-radius:  0px 50px 50px 0px;"
-                         v-bind:class="{error: $v.instituteData.city.$error, valid: $v.instituteData.city.$dirty && !$v.instituteData.city.$invalid}">
+                         v-bind:class="{error: $v.instituteData.address.city.$error, valid: $v.instituteData.address.city.$dirty && !$v.instituteData.address.city.$invalid}">
                 </div>
-                <div class="mb-3" v-if="$v.instituteData.city.$dirty">
-                  <p class="error-message" v-if="!$v.instituteData.city.required">Field is required</p>
+                <div class="mb-3" v-if="$v.instituteData.address.city.$dirty">
+                  <p class="error-message" v-if="!$v.instituteData.address.city.required">Field is required</p>
                 </div>
               </b-col>
           </b-row>
@@ -104,18 +85,38 @@
                 <div class="input-group mb-3">
                 <div class="input-group-prepend" >
                     <span class="input-group-text" style="border-radius: 50px 0px 0px 50px;">
-                   <i class="fa fa-phone" aria-hidden="true"></i>
+                   <i class="fa fa-globe" aria-hidden="true"></i>
                     </span>
                 </div>
                   <input  type="text"
                           class="form-control"
-                          placeholder="Contact"
-                          v-model="instituteData.contact"
+                          placeholder="State"
+                          v-model="instituteData.address.state"
                           style="border-radius:  0px 50px 50px 0px;"
-                          v-bind:class="{error: $v.instituteData.contact.$error, valid: $v.instituteData.contact.$dirty && !$v.instituteData.contact.$invalid}">
+                          v-bind:class="{error: $v.instituteData.address.state.$error, valid: $v.instituteData.address.state.$dirty && !$v.instituteData.address.state.$invalid}">
                 </div>
-                 <div class="mb-3" v-if="$v.instituteData.contact.$dirty">
-                  <p class="error-message" v-if="!$v.instituteData.contact.required">Field is required</p>
+                 <div class="mb-3" v-if="$v.instituteData.address.state.$dirty">
+                  <p class="error-message" v-if="!$v.instituteData.address.state.required">Field is required</p>
+                </div>
+              </b-col>
+          </b-row>
+           <b-row>
+              <b-col>
+                <div class="input-group mb-3">
+                <div class="input-group-prepend" >
+                    <span class="input-group-text" style="border-radius: 50px 0px 0px 50px;">
+                  <i class="fa fa-globe" aria-hidden="true"></i>
+                    </span>
+                </div>
+                  <input  type="text"
+                          class="form-control"
+                          placeholder="Country"
+                          v-model="instituteData.address.country"
+                          style="border-radius:  0px 50px 50px 0px;"
+                          v-bind:class="{error: $v.instituteData.address.country.$error, valid: $v.instituteData.address.country.$dirty && !$v.instituteData.address.country.$invalid}">
+                </div>
+                 <div class="mb-3" v-if="$v.instituteData.address.country.$dirty">
+                  <p class="error-message" v-if="!$v.instituteData.address.country.required">Field is required</p>
                 </div>
               </b-col>
           </b-row>
@@ -130,12 +131,31 @@
                   <input type="text"
                          class="form-control"
                          placeholder="Zipcode"
-                         v-model="instituteData.zipcode"
+                         v-model="instituteData.address.zipcode"
                          style="border-radius:  0px 50px 50px 0px;"
-                         v-bind:class="{error: $v.instituteData.zipcode.$error, valid: $v.instituteData.zipcode.$dirty && !$v.instituteData.zipcode.$invalid}">
+                         v-bind:class="{error: $v.instituteData.address.zipcode.$error, valid: $v.instituteData.address.zipcode.$dirty && !$v.instituteData.address.zipcode.$invalid}">
                 </div>
-                 <div class="mb-3" v-if="$v.instituteData.zipcode.$dirty">
-                  <p class="error-message" v-if="!$v.instituteData.zipcode.required">Field is required</p>
+                 <div class="mb-3" v-if="$v.instituteData.address.zipcode.$dirty">
+                  <p class="error-message" v-if="!$v.instituteData.address.zipcode.required">Field is required</p>
+                </div>
+              </b-col>
+          </b-row>
+                    <b-row>
+              <b-col>
+                <div class="input-group mb-3">
+                <div class="input-group-prepend" >
+                    <span class="input-group-text" style="border-radius: 50px 0px 0px 50px;">
+                     <i class="fa fa-university" aria-hidden="true"></i></span>
+                </div>
+                  <input type="text"
+                         class="form-control"
+                         placeholder="Type"
+                         v-model="instituteData.type"
+                         style="border-radius:  0px 50px 50px 0px;"
+                         v-bind:class="{error: $v.instituteData.type.$error, valid: $v.instituteData.type.$dirty && !$v.instituteData.type.$invalid}">
+                </div>
+                 <div class="mb-3" v-if="$v.instituteData.type.$dirty">
+                  <p class="error-message" v-if="!$v.instituteData.type.required">Field is required</p>
                 </div>
               </b-col>
           </b-row>
@@ -148,7 +168,7 @@
                 <hr>
                   <div class="float-right">
                     <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
-                    <a class="btn btn-1 btn-2 px-2" disabled="$v.instituteData.$error"  @click="addInstituteDetail">Add</a>
+                    <a class="btn btn-1 btn-2 px-2" disabled="$v.instituteData.$error"  @click="createInstitute">Add</a>
                   </div>
             </b-col>
           </b-row>
@@ -161,7 +181,6 @@
   </b-modal>
   <b-col>
   <b-row>
-<!-- <institute-card v-for="list in details" :details="list" v-bind:key="list"></institute-card> -->
     </b-row>
     </b-col>
 
@@ -170,9 +189,9 @@
 
 <script>
 import {addInstitute} from "@/store/index";
+import AccountApi from "@/services/api/Account";
 import InstituteCard from '@/components/comp/cards/InstituteCard.vue';
-import Validate from "@/validator/ContactValidator";
-  import { required} from "vuelidate/lib/validators";
+import { required} from "vuelidate/lib/validators";
 export default {
   name: "InstituteModal",
   components:{
@@ -180,43 +199,57 @@ export default {
   },
    validations: {
     instituteData: {
-      institutename: {
+      name: {
         required,
       },
-      address: {
-        required,
-      },
+      address:{
       street:{
         required
       },
       city:{
         required
       },
-      contact:{
+      state:{
+        required
+      },
+      country:{
         required
       },
       zipcode:{
         required
       }
+    },
+    type: {
+        required,
+      },
     }
    },
   methods: {
        clearInstituteData () {
-      this.instituteData.institutename = '';
-      this.instituteData.address = '';
-      this.instituteData.street = '';
-      this.instituteData.city = '';
-      this.instituteData.contact = '';
-      this.instituteData.zipcode = '';
+      this.instituteData.name = '';
+      this.instituteData.type='';
+      this.instituteData.address.street = '';
+      this.instituteData.address.city = '';
+      this.instituteData.address.contact = '';
+      this.instituteData.address.zipcode = '';
       this.$v.$reset();
     },
-    addInstituteDetail () {
+    createInstitute:function (instituteData) {
        this.$v.$touch();
       if (this.$v.$invalid) {
         console.log("error");
       }else{
       console.log('one time..');
-      // this.instituteData.image='/static/images/institute-building.png';
+      let uuid =  this.$session.get("current_user").id;
+        AccountApi.createInstitute(uuid,instituteData)
+          .then(response => {
+            console.log(response);
+            //  this.getInstituteInfo();
+          })
+          .catch(err => {
+            console.log(err);
+            return false;
+          });
       this.instituteData.noparent='0';
       this.instituteData.nostudent='0';
       this.instituteData.nostaff='0';
@@ -224,11 +257,10 @@ export default {
       this.instituteData.chatscount='0';
       this.instituteData.likescount='0';
       this.$store.dispatch('addInstituteDetail',this.instituteData);
-      // this.details.push(this.defaultInstitute);
-      // this.clearInstituteData();
+      console.log(this.instituteData.institutename);
+      this.clearInstituteData();
       this.showInstituteModal=false;
     }
-
     },
     cancel(){
       this.showInstituteModal=false;
@@ -240,24 +272,15 @@ export default {
        details:[],
        instituteData:{
         name:'',
-        address:'',
-        street:'',
-        city:'',
-        contact:'',
-        zipcode:''
+        address:{
+            street:'',
+            city:'',
+            state:'',
+            country:'',
+            zipcode:''
+        },
+        type:'',
       },
-      // defaultInstitute:[
-      //     {
-      //       image:'institute-building.png',
-      //       institutename:'Anna University',
-      //       nostaff:'20',
-      //       nostudent:'35',
-      //       noparent:'10',
-      //       feedscount:'8',
-      //       chatscount:'6',
-      //       likescount:'5'
-      //       },
-      //       ],
       showInstituteModal: false
     };
   }

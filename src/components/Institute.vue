@@ -4,7 +4,7 @@
     <page-footer></page-footer>
     <b-container >
       <b-row style="margin-top:30px;">
-        <institute-card v-for="detail in details" :details="detail" v-bind:key="detail"></institute-card>
+        <institute-card v-for="detail in details" :details="detail" v-bind:key="detail" ></institute-card>
         <b-col cols="4">
            <div class="institute-card">
               <b-row>
@@ -23,6 +23,7 @@
   import MainHeader from "@/components/comp/MainHeader.vue";
   import PageFooter from "@/components/comp/PageFooter.vue";
   import InstituteModal from "@/components/comp/modals/InstituteModal.vue";
+  import InstituteApi from "@/services/api/Institute";
   import InstituteCard from "@/components/comp/cards/InstituteCard.vue";
   export default {
     name: "Institute",
@@ -38,33 +39,27 @@
         details: [
             this.$store.state.instituteDetails
         ],
-        //  defaultInstitute:[
-        //   {
-        //     image:'institute-building.png',
-        //     institutename:'Anna University',
-        //     nostaff:'20',
-        //     nostudent:'35',
-        //     noparent:'10',
-        //     feedscount:'8',
-        //     chatscount:'6',
-        //     likescount:'5'
-        //     },
-        //     ],
+         defaultInstitute:[
+          {
+            image:'institute-building.png',
+            institutename:'Anna University',
+            nostaff:'20',
+            nostudent:'35',
+            noparent:'10',
+            feedscount:'8',
+            chatscount:'6',
+            likescount:'5'
+            },
+            ],
         }
     },
+    methods:{
 
+
+    },
     mounted(){
       console.log('mounted Calling');
-      console.log(this.$store.state.instituteDetails);
-
-    // this.details.push(this.defaultInstitute);
-    // this.details.push(this.defaultInstitute);
-    // this.details.push(this.defaultInstitute);
-    // this.details.push(this.defaultInstitute);
-    // this.details.push(this.defaultInstitute);
-    // this.details.push(this.defaultInstitute);
-    // this.details.push(this.defaultInstitute);
-    // this.details.push(this.defaultInstitute);
+      this.details.push(this.defaultInstitute);
  }
   };
 </script>

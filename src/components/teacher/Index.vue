@@ -1,13 +1,13 @@
 <template>
 <div style="overflow: hidden">
     <main-header></main-header>
-    <cover-banner></cover-banner>    
+    <cover-banner></cover-banner>
     <sub-menu :menuItems="menuItems"></sub-menu>
     <page-footer></page-footer>
 <b-container>
   <b-row>
     <b-col id="right-pane" cols="3" order="12">
-       <StoryCategories></StoryCategories>      
+       <StoryCategories></StoryCategories>
     </b-col>
     <b-col  id="center-pane" cols="5" order="1">
       <Stories></Stories>
@@ -17,19 +17,19 @@
         <!-- <UpcomingEvents></UpcomingEvents>        -->
     </b-col>
   </b-row>
-</b-container>     
-</div>    
+</b-container>
+</div>
 </template>
 <script>
   import MainHeader from "@/components/comp/MainHeader.vue";
-  import CoverBanner from "@/components/comp/CoverBanner.vue";  
+  import CoverBanner from "@/components/comp/CoverBanner.vue";
   import SubMenu from "@/components/comp/SubMenu.vue";
   import PageFooter from "@/components/comp/PageFooter.vue";
   import InstituteDetails from "@/components/comp/InstituteDetails.vue";
   import UpcomingEvents from "@/components/comp/UpcomingEvents.vue";
   import Stories from "@/components/comp/Stories.vue";
   import StoryCategories from "@/components/comp/StoryCategories.vue";
-  
+
   export default {
     name: "Index",
     components: {
@@ -52,7 +52,7 @@
             {name: 'Event', link:'#', icon: 'fa fa-calendar-o', active: ''},
             {name: 'Message', link:'#', icon: 'fa fa-commenting-o', active: ''},
             // {name: 'Settings', link:'#', icon: 'fa fa-cog', active: ''},
-          ],  
+          ],
 
       };
     },
@@ -92,9 +92,9 @@
     //             return c.event.handle.apply(this,d)
     //           }
     //         }
-    //         )(jQuery);      
+    //         )(jQuery);
     // }
-   
+
   };
 </script>
 <style scoped>
@@ -103,7 +103,7 @@
   overflow-y: scroll;
   height:90vh;
 }
-#right-pane{  
+#right-pane{
   /*overflow: hidden;  */
   overflow-y: scroll;
   height:92vh;

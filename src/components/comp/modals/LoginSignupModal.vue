@@ -160,7 +160,6 @@
 </template>
 
 <script>
-import Validator from "@/validator/ContactValidator";
 import swal from "sweetalert2";
 import { required, minLength } from "vuelidate/lib/validators";
 import AccountApi from "@/services/api/Account";
