@@ -222,7 +222,7 @@ export default {
               type: "success",
               title: "Signed in successfully"
             });
-            this.getUserInfo();
+            // this.getUserInfo();
             this.$router.replace(this.$route.query.redirect || "/institute");
           })
           .catch(err => {

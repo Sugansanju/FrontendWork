@@ -1,10 +1,10 @@
 <template>
-<!-- <b-container> -->
+<b-container>
   <!-- <div @click="navigate"> -->
       <b-col cols="4">
-        <b-row v-for="(item,index) in details" v-bind:key="index">
+        <b-row v-for="item in details" v-bind:key="item.id">
       <!-- <b-row> -->
-        <div class="institute-card" >
+        <div class="institute-card">
           <b-row>
             <b-col offset="10" style="margin-top:-15px;">
             <b-dropdown variant="link" size="lg" no-caret>
@@ -26,18 +26,18 @@
                 <b-img src="/static/images/institute-building.png" />
                  <!-- <b-img :src="'/static/images/'+item.image"/> -->
               </div>
-       <div @click="redirect" class="cursor:pointer"> <h1>{{item.name}}Anna University</h1></div>
-       <b-row >
+       <div> <h1>{{item.name}}</h1></div>
+       <b-row>
         <div class="staff-stats">
-            <strong>{{item.nostaff}}0</strong>
+            <strong>{{item.nostaff}}</strong>
             <br> Staff
         </div>
         <div class="parent-stats">
-            <strong>{{item.nostudent}}0</strong>
+            <strong>{{item.nostudent}}</strong>
             <br> Student
         </div>
         <div class="student-stats">
-            <strong>{{item.noparent}}0</strong>
+            <strong>{{item.noparent}}</strong>
             <br> Parent
         </div>
        </b-row>
@@ -48,17 +48,17 @@
         <!-- <div class="float-right"> -->
         <div class="feeds-badge">
             <div class="feeds-bubble">
-                <span class="bubble-field">{{item.feedscount}}0</span>
+                <span class="bubble-field">{{item.feedscount}}</span>
             </div>
         </div>
         <div class="chats-badge">
             <div class="chats-bubble">
-                <span class="bubble-field">{{item.chatscount}}0</span>
+                <span class="bubble-field">{{item.chatscount}}</span>
             </div>
         </div>
         <div class="likes-badge">
             <div class="likes-bubble">
-                <span class="bubble-field">{{item.likescount}}0</span>
+                <span class="bubble-field">{{item.likescount}}</span>
             </div>
         </div>
       <!-- </div> -->
@@ -67,47 +67,31 @@
         </b-row>
       </b-col>
   <!-- </div> -->
-<!-- </b-container> -->
+</b-container>
 </template>
 
 <script>
-import EditInstituteModal from "@/components/comp/modals/EditInstituteModal.vue"
-import swal from "sweetalert2";
 export default {
   name: "InstituteCard",
   props: ["details"],
-  components:{
-    EditInstituteModal
-  },
   data() {
     return {};
   },
   methods:{
-     redirect() {
-       console.log("call");
-        this.$router.replace(this.$route.query.redirect || "/teacher");
-    },
-    deleteCardDetails:function(index){
-			 this.details.splice(index, 1)
-  }
-}
 
+  }
 };
 </script>
-
 <style>
 .primary {
   color: var(--main-primary-color);
 }
-.link{
-color:var(--main-primary-color);
-}
 .content{
-  margin-top:-40px;
+    margin-top:-40px;
 }
-
 .institute-card {
   background: #fff;
+  /* width:350px; */
   margin-top:45px;
   height: 150px;
   border-radius:9px;
@@ -122,7 +106,6 @@ color:var(--main-primary-color);
   font-family: "Cabin", sans-serif;
   font-size: 1.5em;
   margin-top: 10px;
-
   margin-left: 5px;
   /* width: 100%; */
   /* overflow: hidden; */

@@ -12,6 +12,7 @@
         <b-col style="margin-top: 10%">
           <div class="card card-style">
             <div class="card-body text-center">
+              <form @submit.prevent="login(user)">
         <input  class="form-control input"
                 type="text"
                 placeholder="Email/Mobile"
@@ -41,18 +42,22 @@
               <div class="col-md-6"> </div>
                 <div class="col-md-6 float-right">
                   <b-link class="btn" v-b-modal.loginSignupModal>Signup</b-link>
-                  <a class="btn btn-1 btn-white" disabled="$v.user.$error" @click="login(user)">login</a>
+                  <!-- <button autofocus class="btn btn-1 btn-white"  @keypress.prevent="login(user)">login</button> -->
+                    <button autofocus class="btn btn-1 btn-white"  type="submit">login</button>
                      <br>
                  </div>
            </div>
+              </form>
             </div>
           </div>
         </b-col>
       </b-row>
       <login-signup-modal></login-signup-modal>
     </b-container>
+
   </div>
 </template>
+
 <script>
 import MainHeader from "@/components/comp/MainHeader.vue";
 import CoverBanner from "@/components/comp/CoverBanner.vue";
@@ -97,22 +102,6 @@ export default {
       }
       console.log("Check..");
     },
-    getUserInfo: function() {
-      if (this.$session.exists("contact")) {
-        AccountApi.getUserInfo(this.$session.get("contact"))
-          .then(result => {
-            this.$session.set("current_user", result.data);
-            console.log(
-              "Current user in session",
-              this.$session.get("current_user")
-            );
-            window.location.reload();
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
-    },
     check: function() {
       axios({
         method: "get",
@@ -125,7 +114,23 @@ export default {
           console.log(err);
         });
     },
-    login: function(user) {
+    getUserInfo() {
+      return new Promise((resolve, reject)=>{
+      if (this.$session.exists("contact")) {
+        AccountApi.getUserInfo(this.$session.get("contact"))
+          .then(reponse => {
+            this.$session.set("current_user", reponse.data);
+            console.log("Current user in session",this.$session.get("current_user"));
+            resolve(reponse);
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err);
+          });
+      }
+      });
+    },
+    login(user) {
         this.$v.$touch();
        if (this.$v.$invalid){
        console.log("error");
@@ -148,7 +153,6 @@ export default {
               type: "success",
               title: "Signed in successfully"
             });
-             this.getUserInfo();
              this.$router.replace(this.$route.query.redirect || "/institute");
           })
           .catch(err => {

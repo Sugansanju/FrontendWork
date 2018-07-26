@@ -1,9 +1,9 @@
 <template>
 <b-container>
-    <b-modal id="profileSettingsModal"
+    <b-modal id="profileSettingsModal" 
     hide-header
     hide-footer
-    no-close-on-backdrop
+    no-close-on-backdrop 
     no-close-on-esc
     centered
     v-model="showProfileSettingsModal">
@@ -15,7 +15,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </b-col>
-
+                
             </b-row>
             <b-row>
                 <b-col>
@@ -23,8 +23,8 @@
                     <b-tab title="Profile Settings">
                         <b-container>
                             <b-row style="margin-top: 25px; ">
-                                <b-col>
-                                    <b-img src="/static/images/avatar.png"> </b-img>
+                                <b-col>                               
+                                    <b-img src="/static/images/avatar.png"> </b-img>                            
                                 </b-col>
                             </b-row>
                             <b-row style="margin-top: 25px; ">
@@ -36,9 +36,9 @@
                                         </span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="first and last name" style="border-radius:  0px 50px 50px 0px;">
-                                    </div>
+                                    </div>                  
                                 </b-col>
-                            </b-row>
+                            </b-row> 
                             <b-row>
                                 <b-col>
                                     <div class="input-group mb-3">
@@ -48,7 +48,7 @@
                                         </span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="email" style="border-radius:  0px 50px 50px 0px; ">
-                                    </div>
+                                    </div>                  
                                 </b-col>
                             </b-row>
                             <b-row>
@@ -60,7 +60,7 @@
                                         </span>
                                     </div>
                                     <input type="text" class="form-control" placeholder="mobile number" style="border-radius:  0px 50px 50px 0px;">
-                                    </div>
+                                    </div>                  
                                 </b-col>
                             </b-row>
                             <b-row>
@@ -69,7 +69,7 @@
                                 <div class="float-right">
                                     <button class="btn btn-1 border" @click="showProfileSettingsModal=false" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Skip</button>
                                     <button class="btn btn-1 btn-2 px-2">Update</button>
-                                </div>
+                                </div>                  
                                 </b-col>
                             </b-row>
                         </b-container>

@@ -240,36 +240,38 @@ export default {
       this.instituteData.address.zipcode = '';
       this.$v.$reset();
     },
-    createInstitute:function (instituteData) {
+    async createInstitute(instituteData) {
        this.$v.$touch();
       if (this.$v.$invalid) {
         console.log("error");
       }else{
       console.log('one time..');
       let uuid =  this.$session.get("current_user").id;
-        InstituteApi.createInstitute(uuid,this.instituteData)
+        await InstituteApi.createInstitute(uuid,this.instituteData)
           .then(response => {
             console.log(response);
             this.clearInstituteData();
             this.showInstituteModal=false;
-            this.getInstitutes();
+            // this.getInstitutes();
+            window.location.reload();
           })
           .catch(err => {
             console.log(err);
-            return false;
+            createInstitute(instituteData);
+            // return false;
           });
 
     }
     },
-    getInstitutes:function(){
-      let uuid=this.$session.get("current_user").id;
-      InstituteApi.getInstituteDetails(uuid)
-      .then(response =>{
-        console.log("response",response);
-        this.$store.dispatch('addInstituteDetail',response.data)
-      })
-    },
-    cancel(){
+    // getInstitutes:function(){
+    //   let uuid=this.$session.get("current_user").id;
+    //   InstituteApi.getInstituteDetails(uuid)
+    //   .then(response =>{
+    //     console.log("response",response);
+    //     this.$store.dispatch('addInstituteDetail',response.data)
+    //   })
+    // },
+    cancel:function(){
       this.showInstituteModal=false;
       this.clearInstituteData();
     },

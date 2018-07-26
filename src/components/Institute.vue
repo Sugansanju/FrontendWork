@@ -1,11 +1,14 @@
 <template>
-<div>
-<main-header></main-header>
+<div style="padding-bottom: 100px">
+<main-header :currentUser="currentUser"></main-header>
+<!-- <main-header></main-header> -->
     <page-footer></page-footer>
     <b-container >
       <b-row style="margin-top:30px;">
-        <institute-card v-for="(detail,index) in details" :details="details" v-bind:key="index" ></institute-card>
-        <b-col cols="4">
+        <institute-card v-for="detail in details" :details="detail" v-bind:key="detail.id" ></institute-card>
+        
+      </b-row>
+<b-col cols="4">
            <div class="institute-card">
               <b-row>
                <b-col align-self="center" >
@@ -13,9 +16,8 @@
                </b-col>
             </b-row>
              </div>
-          </b-col>
-      </b-row>
-            <button @click="getInstitutes">API</button>
+          </b-col>      
+            <!-- <button @click="getInstitutes">API</button> -->
     </b-container>
   <institute-modal></institute-modal>
 </div>
@@ -25,6 +27,8 @@ import MainHeader from "@/components/comp/MainHeader.vue";
 import PageFooter from "@/components/comp/PageFooter.vue";
 import InstituteModal from "@/components/comp/modals/InstituteModal.vue";
 import InstituteApi from "@/services/api/Institute";
+import AccountApi from "@/services/api/Account";
+import Global from "@/services/api/Global";
 import InstituteCard from "@/components/comp/cards/InstituteCard.vue";
 export default {
   name: "Institute",
@@ -36,22 +40,62 @@ export default {
   },
   data() {
     return {
-      details: this.$store.state.instituteDetails,
+      details:this.$store.state.instituteDetails,
+      currentUser:null,
     };
   },
+  mounted(){
+
+    //  location.reload=this.onPageRefresh;
+  },  
+  async mounted(){  
+      console.log("Getting refresh token");
+      await Global.onPageRefresh(this.$session);         
+      console.log("Getting User info");
+      await this.getUserInfo();         
+      console.log("Getting Institutes");
+      await this.getInstitutes();           
+  },  
   methods: {
-    getInstitutes: function() {
-      let uuid = this.$session.get("current_user").id;
-      InstituteApi.getInstituteDetails(uuid).then(response => {
-        console.log("response", response);
-        this.$store.dispatch("addInstituteDetail", response);
+  
+    getInstitutes() {
+      return new Promise((resolve, reject)=>{
+        var uuid=null;
+        if(this.$session.exists("current_user")){
+          let user=this.$session.get("current_user");
+          console.log('The User is ', user);
+          uuid = user.id;
+        }
+        InstituteApi.getInstituteDetails(uuid)
+        .then(response => {
+          console.log("response", response);
+          this.$store.dispatch("addInstituteDetail", response.data); 
+          resolve(response);
+        })
+        .catch(err=>{
+          console.log(err);
+          reject(err)
+        });
       });
-    }
+    },
+    getUserInfo() {
+      return new Promise((resolve, reject)=>{
+      if (this.$session.exists("contact")) {
+        AccountApi.getUserInfo(this.$session.get("contact"))
+          .then(reponse => {
+            this.$session.set("current_user", reponse.data);
+            this.currentUser=reponse.data;
+            console.log("Current user in session",this.$session.get("current_user"));            
+            resolve(reponse);
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err);
+          });
+      }
+      });    
+    },        
   },
-  mounted() {
-    console.log("calling created");
-    // this.getInstitutes();
-  }
 };
 </script>
 <style scoped>

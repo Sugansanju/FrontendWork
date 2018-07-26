@@ -19,8 +19,8 @@ const store = new Vuex.Store({
   mutations: {
     updateDetails: function (state, data) {
       console.log('mutation method called', data);
-      // state.instituteDetails = data;
-      state.instituteDetails.push(data);
+      // state.instituteDetails=[];
+       state.instituteDetails.push(data);
     }
   },
 });

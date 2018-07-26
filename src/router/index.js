@@ -37,9 +37,9 @@ const routes = [
     path: '/teacher',
     name: 'Teacher',
     component: Teacher,
-    // meta: {
-    //   requiresAuth: true
-    // }
+    meta: {
+      requiresAuth: true
+    }
     // access: {
     //   requiresLogin: true,
     //    requiredPermissions: ['teacher'],

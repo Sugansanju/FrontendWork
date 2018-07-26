@@ -12,7 +12,7 @@
           </a>
         </b-nav-item>
           <b-nav-item-dropdown right>
-            <template slot="button-content">
+            <template slot="button-content" v-if="currentUser!=null">
               <b-img src="/static/images/img1.png" width="35px" height="35px" />
                {{currentUser.username!=null?currentUser.username:(currentUser.email!=null?currentUser.email:User)}}
             </template>
@@ -37,29 +37,23 @@ import swal from "sweetalert2";
 import AccountApi from "@/services/api/Account"
   export default{
     name: 'MainHeader',
+    props:['currentUser'],
     components:{
         ProfileSettingsModal,
         OtpModal,
     },
    data:function(){
       return{
-        currentUser: null,
+        // currentUser:null,
       }
-    },
-    created(){
-      this.onPageRefresh();
-      if(this.$session.exists('current_user')){
-        this.currentUser=this.$session.get('current_user');
-        console.log('The current user in header',this.currentUser);
-      }
-    },
+    }, 
     methods:{
       logout: function(){
         const toast = swal.mixin({
           toast: true,
           position: "top",
           showConfirmButton: false,
-          timer:50000
+          timer:5000
         });
         toast({
           type: "success",
@@ -77,25 +71,8 @@ import AccountApi from "@/services/api/Account"
         this.$router.replace(this.$route.query.redirect || '/')
         window.location.reload();
       },
-      onPageRefresh: function() {
-      console.log("Page Refreshing", this.$session.exists("refresh_token"));
-      if (this.$session.exists("refresh_token")) {
-        console.log(
-          "Refresh token available",
-          this.$session.get("refresh_token")
-        );
-        AccountApi.getAccessToken(this.$session.get("refresh_token"))
-          .then(response => {
-            console.log(response);
-            this.$session.set("access_token", response.data.access_token);
-            this.$session.set("refresh_token", response.data.refresh_token);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+
     }
-    },
 
   };
 </script>
