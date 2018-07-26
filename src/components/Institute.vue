@@ -4,7 +4,7 @@
     <page-footer></page-footer>
     <b-container >
       <b-row style="margin-top:30px;">
-        <institute-card v-for="detail in details" :details="detail" v-bind:key="detail" ></institute-card>
+        <institute-card v-for="(detail,index) in details" :details="details" v-bind:key="index" ></institute-card>
         <b-col cols="4">
            <div class="institute-card">
               <b-row>
@@ -15,71 +15,62 @@
              </div>
           </b-col>
       </b-row>
+            <button @click="getInstitutes">API</button>
     </b-container>
   <institute-modal></institute-modal>
 </div>
 </template>
 <script>
-  import MainHeader from "@/components/comp/MainHeader.vue";
-  import PageFooter from "@/components/comp/PageFooter.vue";
-  import InstituteModal from "@/components/comp/modals/InstituteModal.vue";
-  import InstituteApi from "@/services/api/Institute";
-  import InstituteCard from "@/components/comp/cards/InstituteCard.vue";
-  export default {
-    name: "Institute",
-    components: {
-      MainHeader,
-      InstituteModal,
-      InstituteCard,
-      PageFooter
-    },
-    data() {
-      return {
-        //  details:[],
-        details: [
-            this.$store.state.instituteDetails
-        ],
-         defaultInstitute:[
-          {
-            image:'institute-building.png',
-            institutename:'Anna University',
-            nostaff:'20',
-            nostudent:'35',
-            noparent:'10',
-            feedscount:'8',
-            chatscount:'6',
-            likescount:'5'
-            },
-            ],
-        }
-    },
-    methods:{
-
-
-    },
-    mounted(){
-      console.log('mounted Calling');
-      this.details.push(this.defaultInstitute);
- }
-  };
+import MainHeader from "@/components/comp/MainHeader.vue";
+import PageFooter from "@/components/comp/PageFooter.vue";
+import InstituteModal from "@/components/comp/modals/InstituteModal.vue";
+import InstituteApi from "@/services/api/Institute";
+import InstituteCard from "@/components/comp/cards/InstituteCard.vue";
+export default {
+  name: "Institute",
+  components: {
+    MainHeader,
+    InstituteModal,
+    InstituteCard,
+    PageFooter
+  },
+  data() {
+    return {
+      details: this.$store.state.instituteDetails,
+    };
+  },
+  methods: {
+    getInstitutes: function() {
+      let uuid = this.$session.get("current_user").id;
+      InstituteApi.getInstituteDetails(uuid).then(response => {
+        console.log("response", response);
+        this.$store.dispatch("addInstituteDetail", response);
+      });
+    }
+  },
+  mounted() {
+    console.log("calling created");
+    // this.getInstitutes();
+  }
+};
 </script>
 <style scoped>
-.primary{
-    color:var(--main-primary-color);
+.primary {
+  color: var(--main-primary-color);
 }
-.icon{
-    color:var(--main-primary-color);
-    margin-top:40px;
+.icon {
+  color: var(--main-primary-color);
+  margin-top: 40px;
 }
-.institute-card{
-            background: #fff;
-            height: 150px;
-            /* width:350px; */
-            border-radius:5px;
-            box-shadow: 5px 8px 25px 5px #888888 ;
-            padding: 10px 10px 10px 10px;
-        }
-        .institute-img {
+.institute-card {
+  background: #fff;
+  height: 150px;
+  /* width:350px; */
+  border-radius: 5px;
+  box-shadow: 5px 8px 25px 5px #888888;
+  padding: 10px 10px 10px 10px;
+}
+.institute-img {
   margin-left: 10px;
   /* margin-top: 25%; */
 }

@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    // access_token: this.$session.exists('access_token') ? this.$session.get('access_token') : '',
     instituteDetails: [],
   },
   actions: {
@@ -18,6 +19,7 @@ const store = new Vuex.Store({
   mutations: {
     updateDetails: function (state, data) {
       console.log('mutation method called', data);
+      // state.instituteDetails = data;
       state.instituteDetails.push(data);
     }
   },

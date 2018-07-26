@@ -1,46 +1,64 @@
 <template>
 <!-- <b-container> -->
+  <!-- <div @click="navigate"> -->
       <b-col cols="4">
         <b-row v-for="(item,index) in details" v-bind:key="index">
-        <div class="institute-card" @click="redirect">
-          <b-row >
+      <!-- <b-row> -->
+        <div class="institute-card" >
+          <b-row>
+            <b-col offset="10" style="margin-top:-15px;">
+            <b-dropdown variant="link" size="lg" no-caret>
+                      <template slot="button-content">
+                         <i class="fa fa-cogs primary" aria-hidden="true"></i>
+               </template>
+            <!-- <b-dropdown-item v-b-modal.profileSettingsModal> -->
+              <b-dropdown-item v-b-modal.instituteModal>
+               <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+            </b-dropdown-item>
+            <b-dropdown-item @click="deleteCardDetails">
+              <i class="fa fa-trash" aria-hidden="true" > </i> Delete
+            </b-dropdown-item>
+          </b-dropdown>
+             </b-col>
+          </b-row>
+          <b-row class="content">
               <div class="institute-img">
                 <b-img src="/static/images/institute-building.png" />
                  <!-- <b-img :src="'/static/images/'+item.image"/> -->
               </div>
-       <div> <h1>{{item.institutename}}</h1></div>
-       <b-row>
+       <div @click="redirect" class="cursor:pointer"> <h1>{{item.name}}Anna University</h1></div>
+       <b-row >
         <div class="staff-stats">
-            <strong>{{item.nostaff}}</strong>
+            <strong>{{item.nostaff}}0</strong>
             <br> Staff
         </div>
         <div class="parent-stats">
-            <strong>{{item.nostudent}}</strong>
+            <strong>{{item.nostudent}}0</strong>
             <br> Student
         </div>
         <div class="student-stats">
-            <strong>{{item.noparent}}</strong>
+            <strong>{{item.noparent}}0</strong>
             <br> Parent
         </div>
        </b-row>
           </b-row>
 
-    <!-- <b-row align-h="end" style="padding-right:10px;" v-for="item in details" v-bind:key="item"> -->
+    <!-- <b-row align-h="end" style="padding-right:10px;" v-for="item in item" v-bind:key="item"> -->
       <b-row align-h="end" style="padding-right:10px;">
         <!-- <div class="float-right"> -->
         <div class="feeds-badge">
             <div class="feeds-bubble">
-                <span class="bubble-field">{{item.feedscount}}</span>
+                <span class="bubble-field">{{item.feedscount}}0</span>
             </div>
         </div>
         <div class="chats-badge">
             <div class="chats-bubble">
-                <span class="bubble-field">{{item.chatscount}}</span>
+                <span class="bubble-field">{{item.chatscount}}0</span>
             </div>
         </div>
         <div class="likes-badge">
             <div class="likes-bubble">
-                <span class="bubble-field">{{item.likescount}}</span>
+                <span class="bubble-field">{{item.likescount}}0</span>
             </div>
         </div>
       <!-- </div> -->
@@ -48,14 +66,19 @@
           </div>
         </b-row>
       </b-col>
-  <!-- </b-container> -->
+  <!-- </div> -->
+<!-- </b-container> -->
 </template>
 
 <script>
+import EditInstituteModal from "@/components/comp/modals/EditInstituteModal.vue"
+import swal from "sweetalert2";
 export default {
   name: "InstituteCard",
   props: ["details"],
-
+  components:{
+    EditInstituteModal
+  },
   data() {
     return {};
   },
@@ -63,8 +86,12 @@ export default {
      redirect() {
        console.log("call");
         this.$router.replace(this.$route.query.redirect || "/teacher");
-    }
+    },
+    deleteCardDetails:function(index){
+			 this.details.splice(index, 1)
   }
+}
+
 };
 </script>
 
@@ -72,24 +99,30 @@ export default {
 .primary {
   color: var(--main-primary-color);
 }
+.link{
+color:var(--main-primary-color);
+}
+.content{
+  margin-top:-40px;
+}
+
 .institute-card {
   background: #fff;
-  /* width:350px; */
   margin-top:45px;
   height: 150px;
   border-radius:9px;
-  cursor: pointer;
   box-shadow: 5px 8px 25px 5px #888888;
   padding: 10px 10px 10px 10px;
 }
 .institute-img {
   margin-left: 10px;
-  /* margin-top: 25%; */
+  margin-top:13px;
 }
 .institute-card h1 {
   font-family: "Cabin", sans-serif;
   font-size: 1.5em;
   margin-top: 10px;
+
   margin-left: 5px;
   /* width: 100%; */
   /* overflow: hidden; */
@@ -153,7 +186,7 @@ export default {
   text-align: center;
   display: inline-block;
   padding: 10px 10px 10px 10px;
-  margin-left: 100px;
+  margin-left: 110px;
   margin-top: -60px;
 }
 .parent-stats {

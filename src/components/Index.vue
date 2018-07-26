@@ -51,10 +51,8 @@
       </b-row>
       <login-signup-modal></login-signup-modal>
     </b-container>
-
   </div>
 </template>
-
 <script>
 import MainHeader from "@/components/comp/MainHeader.vue";
 import CoverBanner from "@/components/comp/CoverBanner.vue";
@@ -90,7 +88,7 @@ export default {
   },
   created() {
     // this.checkCurrentLogin();
-    this.onPageRefresh();
+    // this.onPageRefresh();
   },
   methods: {
     checkCurrentLogin: function() {
@@ -163,24 +161,24 @@ export default {
           });
       }
     },
-    onPageRefresh: function() {
-      console.log("Page Refreshing", this.$session.exists("refresh_token"));
-      if (this.$session.exists("refresh_token")) {
-        console.log(
-          "Refresh token available",
-          this.$session.get("refresh_token")
-        );
-        AccountApi.getAccessToken(this.$session.get("refresh_token"))
-          .then(response => {
-            console.log(response);
-            this.$session.set("access_token", response.data.access_token);
-            this.$session.set("refresh_token", response.data.refresh_token);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
-    }
+    // onPageRefresh: function() {
+    //   console.log("Page Refreshing", this.$session.exists("refresh_token"));
+    //   if (this.$session.exists("refresh_token")) {
+    //     console.log(
+    //       "Refresh token available",
+    //       this.$session.get("refresh_token")
+    //     );
+    //     AccountApi.getAccessToken(this.$session.get("refresh_token"))
+    //       .then(response => {
+    //         console.log(response);
+    //         this.$session.set("access_token", response.data.access_token);
+    //         this.$session.set("refresh_token", response.data.refresh_token);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //       });
+    //   }
+    // }
   },
   data() {
     return {

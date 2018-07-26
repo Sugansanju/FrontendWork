@@ -31,7 +31,7 @@
   import StoryCategories from "@/components/comp/StoryCategories.vue";
 
   export default {
-    name: "Index",
+    name: "Story",
     components: {
       MainHeader,
       CoverBanner,

@@ -41,6 +41,18 @@ import AccountApi from "@/services/api/Account"
         ProfileSettingsModal,
         OtpModal,
     },
+   data:function(){
+      return{
+        currentUser: null,
+      }
+    },
+    created(){
+      this.onPageRefresh();
+      if(this.$session.exists('current_user')){
+        this.currentUser=this.$session.get('current_user');
+        console.log('The current user in header',this.currentUser);
+      }
+    },
     methods:{
       logout: function(){
         const toast = swal.mixin({
@@ -65,18 +77,26 @@ import AccountApi from "@/services/api/Account"
         this.$router.replace(this.$route.query.redirect || '/')
         window.location.reload();
       },
-    },
-    data: function(){
-      return{
-        currentUser: null,
-      }
-    },
-    created(){
-      if(this.$session.exists('current_user')){
-        this.currentUser=this.$session.get('current_user');
-        console.log('The current user in header',this.currentUser);
+      onPageRefresh: function() {
+      console.log("Page Refreshing", this.$session.exists("refresh_token"));
+      if (this.$session.exists("refresh_token")) {
+        console.log(
+          "Refresh token available",
+          this.$session.get("refresh_token")
+        );
+        AccountApi.getAccessToken(this.$session.get("refresh_token"))
+          .then(response => {
+            console.log(response);
+            this.$session.set("access_token", response.data.access_token);
+            this.$session.set("refresh_token", response.data.refresh_token);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     }
+    },
+
   };
 </script>
 <style scoped>

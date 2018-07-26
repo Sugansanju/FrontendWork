@@ -4,18 +4,21 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import store from './store';
-
-import Vuelidate from 'vuelidate'
-Vue.use(Vuelidate);
-
-// import VueSweetalert2 from 'vue-sweetalert2';
-// Vue.use(VueSweetalert2);
 
 import VueSession from 'vue-session';
 Vue.use(VueSession, {
   persist: true
 });
+
+import store from './store';
+
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
+
+// import VueSweetalert2 from 'vue-sweetalert2';
+// Vue.use(VueSweetalert2);
+
+
 
 import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
@@ -31,9 +34,8 @@ Vue.config.productionTip = false;
 import axios from 'axios';
 // axios.defaults.baseURL = 'http://localhost:9898';
 axios.defaults.baseURL = 'http://51.15.68.75';
-// if (Store.state.tokens.token != '') {
-//   console.log('Store State Tokens', Store.state.tokens.token);
-//   axios.defaults.headers.common['Authorization'] = 'Bearer ' + Store.state.tokens.token;
+// if (this.$session.exists("access_token")) {  
+  // axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.store.state.access_token;
 // }
 window.axios = axios;
 
@@ -41,7 +43,7 @@ window.axios = axios;
 new Vue({
   el: '#app',
   router,
-  // axios,
+  axios,
   store,
   components: { App },
   template: '<App/>'

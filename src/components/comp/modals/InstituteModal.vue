@@ -189,7 +189,7 @@
 
 <script>
 import {addInstitute} from "@/store/index";
-import AccountApi from "@/services/api/Account";
+import InstituteApi from "@/services/api/Institute";
 import InstituteCard from '@/components/comp/cards/InstituteCard.vue';
 import { required} from "vuelidate/lib/validators";
 export default {
@@ -217,7 +217,13 @@ export default {
       },
       zipcode:{
         required
-      }
+      },
+/*       noparent: 0,
+      nostudent: 0,
+      nostaff: 0,
+      feedscount: 0,
+      chatscount: 0,
+      likescount: 0, */
     },
     type: {
         required,
@@ -225,7 +231,7 @@ export default {
     }
    },
   methods: {
-       clearInstituteData () {
+    clearInstituteData () {
       this.instituteData.name = '';
       this.instituteData.type='';
       this.instituteData.address.street = '';
@@ -241,31 +247,33 @@ export default {
       }else{
       console.log('one time..');
       let uuid =  this.$session.get("current_user").id;
-        AccountApi.createInstitute(uuid,instituteData)
+        InstituteApi.createInstitute(uuid,this.instituteData)
           .then(response => {
             console.log(response);
-            //  this.getInstituteInfo();
+            this.clearInstituteData();
+            this.showInstituteModal=false;
+            this.getInstitutes();
           })
           .catch(err => {
             console.log(err);
             return false;
           });
-      this.instituteData.noparent='0';
-      this.instituteData.nostudent='0';
-      this.instituteData.nostaff='0';
-      this.instituteData.feedscount='0';
-      this.instituteData.chatscount='0';
-      this.instituteData.likescount='0';
-      this.$store.dispatch('addInstituteDetail',this.instituteData);
-      console.log(this.instituteData.institutename);
-      this.clearInstituteData();
-      this.showInstituteModal=false;
+
     }
+    },
+    getInstitutes:function(){
+      let uuid=this.$session.get("current_user").id;
+      InstituteApi.getInstituteDetails(uuid)
+      .then(response =>{
+        console.log("response",response);
+        this.$store.dispatch('addInstituteDetail',response.data)
+      })
     },
     cancel(){
       this.showInstituteModal=false;
       this.clearInstituteData();
-    }
+    },
+
   },
   data: function() {
     return {

@@ -1,17 +1,17 @@
 <template>
 <b-container>
-    <b-modal id="profileSettingsModal"
+    <b-modal id="EditInstituteModal"
     hide-header
     hide-footer
     no-close-on-backdrop
     no-close-on-esc
     centered
-    v-model="showProfileSettingsModal">
+    v-model="showEditInstituteModal">
         <b-container fluid>
             <b-row>
                 <b-col>
                 <img src="/static/images/logo.png" float-center>
-                <button type="button" class="close" @click="showProfileSettingsModal=false" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
+                <button type="button" class="close" @click="showEditInstituteModal=false" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </b-col>
@@ -67,7 +67,7 @@
                                 <b-col>
                                 <hr>
                                 <div class="float-right">
-                                    <button class="btn btn-1 border" @click="showProfileSettingsModal=false" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Skip</button>
+                                    <button class="btn btn-1 border" @click="showEditInstituteModal=false" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Skip</button>
                                     <button class="btn btn-1 btn-2 px-2">Update</button>
                                 </div>
                                 </b-col>
@@ -83,10 +83,10 @@
 </template>
 <script>
     export default {
-        name: 'ProfileSettingsModal',
+        name: 'EditInstituteModal',
         data: function() {
             return {
-                showProfileSettingsModal: false,
+                showEditInstituteModal: false,
             }
         }
     };

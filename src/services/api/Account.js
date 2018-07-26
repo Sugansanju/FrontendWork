@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
 
@@ -46,24 +46,9 @@ export default {
           'client_id': 'barClientIdPassword',
           'refresh_token': refreshToken
         }
-      },).then((response) => {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+      }).then((response) => {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;        
         return response;
-    });
-  },
-   createInstitute(uuid, data) {
-    console.log(axios.defaults.headers,"authorization code")
-    return axios({
-      method: 'post',
-      url: 'institute/create/' + uuid,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {
-        data
-      }
-    }).then((response) => {
-      return response;
     });
   },
   logout(accessToken){
