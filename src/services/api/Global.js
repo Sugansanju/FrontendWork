@@ -44,5 +44,6 @@ export default {
                 reject(err);
                 });
             });
-        }
+  },
+
 };

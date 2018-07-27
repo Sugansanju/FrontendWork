@@ -83,7 +83,9 @@
       </b-container>
   </b-tab>
   <b-tab @click="clearUserData" title="Signup" active>
+
       <b-container fluid style="margin-top: 50px;">
+            <form @submit.prevent="signup(user)">
           <b-row>
               <b-col>
                 <div>
@@ -138,7 +140,8 @@
                 <hr>
                   <div class="float-right">
                     <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
-                    <a class="btn btn-1 btn-2 px-2" disabled="$v.user.$error" @click="signup(user)">Signup</a>
+                    <!-- <a class="btn btn-1 btn-2 px-2" disabled="$v.user.$error" @click="signup(user)">Signup</a> -->
+                    <button autofocus class="btn btn-1 btn-2 px-2" type="submit">Signup</button>
                   </div>
             </b-col>
           </b-row>
@@ -149,7 +152,9 @@
               <a href="#">"Terms of Policy</a>, <a href="">Privacy agreement"</a></p>
             </b-col>
           </b-row>
+              </form>
       </b-container>
+
   </b-tab>
 </b-tabs>
                 </b-col>

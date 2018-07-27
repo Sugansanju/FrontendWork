@@ -1,10 +1,10 @@
 <template>
 <div style="overflow: hidden">
-    <main-header></main-header>
+    <main-header  :currentUser="currentUser"></main-header>
     <cover-banner></cover-banner>
     <sub-menu :menuItems="menuItems"></sub-menu>
     <page-footer></page-footer>
-<b-container>
+<b-container  >
   <b-row>
     <b-col id="right-pane" cols="3" order="12">
        <StoryCategories></StoryCategories>
@@ -29,7 +29,8 @@
   import UpcomingEvents from "@/components/comp/UpcomingEvents.vue";
   import Stories from "@/components/comp/Stories.vue";
   import StoryCategories from "@/components/comp/StoryCategories.vue";
-
+  import Global from "@/services/api/Global";
+  import AccountApi from "@/services/api/Account";
   export default {
     name: "Story",
     components: {
@@ -46,16 +47,41 @@
       return {
         menuItems:[
             {name: 'Stories', link:'#/teacher', icon: 'fa fa-newspaper-o', active: 'active'},
-            {name: 'Class', link:'#/teacher/class', icon: 'fa fa-users', active: ''},
+            {name: 'Class', link:'#/class', icon: 'fa fa-users', active: ''},
             {name: 'Staff', link:'#', icon: 'fa fa-user-o', active: ''},
             {name: 'Student', link:'#', icon: 'fa fa-graduation-cap', active: ''},
             {name: 'Event', link:'#', icon: 'fa fa-calendar-o', active: ''},
             {name: 'Message', link:'#', icon: 'fa fa-commenting-o', active: ''},
             // {name: 'Settings', link:'#', icon: 'fa fa-cog', active: ''},
           ],
-
+        currentUser:null,
       };
     },
+     async mounted(){
+      console.log("Getting refresh token");
+      await Global.onPageRefresh(this.$session);
+      console.log("Getting User info");
+      await this.getUserInfo();
+  },
+methods:{
+  getUserInfo() {
+      return new Promise((resolve, reject)=>{
+      if (this.$session.exists("contact")) {
+        AccountApi.getUserInfo(this.$session.get("contact"))
+          .then(reponse => {
+            this.$session.set("current_user", reponse.data);
+            this.currentUser=reponse.data;
+            console.log("Current user in session",this.$session.get("current_user"));
+            resolve(reponse);
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err);
+          });
+      }
+      });
+    },
+}
     // computed:{
     // function(c){
     //   var a=["DOMMouseScroll","mousewheel"];

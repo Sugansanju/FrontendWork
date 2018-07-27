@@ -15,13 +15,13 @@
               <b-dropdown-item v-b-modal.instituteModal>
                <i class="fa fa-pencil" aria-hidden="true"></i> Edit
             </b-dropdown-item>
-            <b-dropdown-item @click="deleteCardDetails">
+            <b-dropdown-item >
               <i class="fa fa-trash" aria-hidden="true" > </i> Delete
             </b-dropdown-item>
           </b-dropdown>
              </b-col>
           </b-row>
-          <b-row class="content">
+          <b-row class="content" @click="redirect">
               <div class="institute-img">
                 <b-img src="/static/images/institute-building.png" />
                  <!-- <b-img :src="'/static/images/'+item.image"/> -->
@@ -78,7 +78,9 @@ export default {
     return {};
   },
   methods:{
-
+    redirect:function(){
+              this.$router.replace(this.$route.query.redirect || "/teacher");
+    }
   }
 };
 </script>
@@ -88,6 +90,7 @@ export default {
 }
 .content{
     margin-top:-40px;
+    cursor: pointer;
 }
 .institute-card {
   background: #fff;

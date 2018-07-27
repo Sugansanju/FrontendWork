@@ -9,6 +9,7 @@ import Login from '@/components/Login';
 import Teacher from '@/components/teacher/Index.vue';
 import TeacherClass from '@/components/teacher/Class.vue';
 import Institute from '@/components/Institute';
+import Class from '@/components/Class';
 
 Vue.use(VueRouter);
 
@@ -37,9 +38,9 @@ const routes = [
     path: '/teacher',
     name: 'Teacher',
     component: Teacher,
-    meta: {
-      requiresAuth: true
-    }
+    // meta: {
+    //   requiresAuth: true
+    // }
     // access: {
     //   requiresLogin: true,
     //    requiredPermissions: ['teacher'],
@@ -59,6 +60,11 @@ const routes = [
     path: '/institute',
     name: 'Institute',
     component: Institute
+  },
+  {
+    path: '/class',
+    name: 'Class',
+    component:Class
   }
 ];
 const router = new VueRouter({ routes });

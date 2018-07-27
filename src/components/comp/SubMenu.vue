@@ -7,13 +7,13 @@
       <div v-if="instituteNavTitle" class="institute-nav-title">
           <strong>Dexter Academy</strong>
           <img src="/static/images/ic.png" width="10" height="10">
-       </div>      
-      <b-collapse is-nav id="nav_collapse">           
+       </div>
+      <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="mx-auto">
-          <b-nav-item  
-            v-for="item in menuItems" 
+          <b-nav-item
+            v-for="item in menuItems"
               :href="item.link"
-              :key="item.name" 
+              :key="item.name"
               :class="item.active">
             <i :class="item.icon" aria-hidden="true"></i> {{item.name}}
           </b-nav-item>
@@ -27,7 +27,7 @@
 <script>
 import ClassSettingsModal from "@/components/comp/modals/ClassSettingsModal.vue";
 
-  export default {    
+  export default {
     name: 'SubMenu',
     props:['menuItems'],
     components:{
@@ -42,14 +42,14 @@ import ClassSettingsModal from "@/components/comp/modals/ClassSettingsModal.vue"
       }
     },
   methods: {
-    handleScroll (event) { 
-        // console.log(window.scrollY);                 
+    handleScroll (event) {
+        // console.log(window.scrollY);
         if(window.scrollY > 400){
           this.avatarContainerBig=false;
           this.avatarContainerSmall=true;
           this.instituteNavTitle=true;
         }
-        if(window.scrollY < 400){         
+        if(window.scrollY < 400){
           this.avatarContainerBig=true;
           this.avatarContainerSmall=false;
           this.instituteNavTitle=false;
@@ -57,25 +57,25 @@ import ClassSettingsModal from "@/components/comp/modals/ClassSettingsModal.vue"
       }
   },
   created () {
-      document.addEventListener('scroll', this.handleScroll);   
-  }, 
-    
+      document.addEventListener('scroll', this.handleScroll);
+  },
+
   };
 </script>
 <style>
-.institute-nav-title{    
+.institute-nav-title{
   position: absolute;
     left: 210px;
 }
   .pro-avatar-container {
     background-image: url("/static/images/dp.jpg");
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
     height: 100px;
     width: 100px;
     left: 150px;
     /* position: absolute; */
     border: 1px solid #fff;
-    border-radius: 25%; 
+    border-radius: 25%;
     position: absolute;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -87,20 +87,20 @@ import ClassSettingsModal from "@/components/comp/modals/ClassSettingsModal.vue"
   }
   .pro-avatar-container-mini {
     background-image: url("/static/images/dp.jpg");
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
     height: 50px;
     width: 50px;
     left: 150px;
     /* position: absolute; */
     border: 1px solid #fff;
-    border-radius: 25%; 
+    border-radius: 25%;
     position: absolute;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    z-index: 1000;  
-    transition: all .6s ease;      
+    z-index: 1000;
+    transition: all .6s ease;
   }
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{
   color: var(--main-primary-color);
