@@ -11,7 +11,7 @@
             <span>Class Name</span>
         </b-col>
         <b-col cols="8">
-            <b-form-input id="classroomName" v-model="classroomName"  type="text" required></b-form-input>
+            <b-form-input id="classroomName" style="text-align:left;" v-model="classroomName" type="text" required></b-form-input>
         </b-col>
     </b-row>
     <b-row  style="padding-top: 25px;">
@@ -80,4 +80,9 @@ export default {
 }
 </script>
 
+<style>
+.align{
+
+}
+</style>
 

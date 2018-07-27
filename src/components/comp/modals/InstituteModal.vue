@@ -32,7 +32,9 @@
                 </div>
                   <input type="text"
                          class="form-control"
+                      autofocus
                          placeholder="Institute Name"
+
                          v-model="instituteData.name"
                          style="border-radius:  0px 50px 50px 0px;"
                          v-bind:class="{error: $v.instituteData.name.$error, valid: $v.instituteData.name.$dirty && !$v.instituteData.name.$invalid}">
@@ -179,7 +181,7 @@
                   <div class="float-right">
                     <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
                     <!-- <a class="btn btn-1 btn-2 px-2" disabled="$v.instituteData.$error"  @click="createInstitute">Add</a> -->
-                    <button autofocus class="btn btn-1 btn-2 btn-white"  type="submit">Add</button>
+                    <button autofocus class="btn btn-1 btn-2 btn-white" type="submit">Add</button>
                   </div>
             </b-col>
           </b-row>

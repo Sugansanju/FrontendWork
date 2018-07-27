@@ -13,8 +13,10 @@
           <div class="card card-style">
             <div class="card-body text-center">
               <form @submit.prevent="login(user)">
+                 <!-- @keyup.enter="$event.target.nextElementSibling.focus()" -->
         <input  class="form-control input"
                 type="text"
+                autofocus
                 placeholder="Email/Mobile"
                 v-model="user.contact"
                 v-bind:class="{error: $v.user.contact.$error, valid: $v.user.contact.$dirty && !$v.user.contact.$invalid}">
@@ -42,7 +44,7 @@
               <div class="col-md-6"> </div>
                 <div class="col-md-6 float-right">
                   <b-link class="btn" v-b-modal.loginSignupModal>Signup</b-link>
-                  <!-- <button autofocus class="btn btn-1 btn-white"  @keypress.prevent="login(user)">login</button> -->
+                  <!-- <button  class="btn btn-1 btn-white" @click="login(user)">login</button> -->
                     <button autofocus class="btn btn-1 btn-white"  type="submit">login</button>
                      <br>
                  </div>
