@@ -1,10 +1,11 @@
 <template>
-  <div class="class-card">
+  <div class="card">
     <div class="d-flex justify-content-end" style="padding-right:10px;margin-top:3px;">
       <a><i class="fa fa-cog" style="color: #999"></i></a>
     </div>
     <div class="text-center">
-      <img :src="classImage">
+      <!-- <img :src="classImage"> -->
+       <b-img :src="classImage"/>
     </div>
     <div class="text-center mt-2">
       <a>{{className}}</a>
@@ -46,21 +47,15 @@
 </script>
 
 <style scoped>
-  /* .card {
+  .card {
     width: 13%;
     margin: 10px 10px 10px 10px;
     text-align: left;
     border-radius: 5px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
-  } */
-  .class-card {
-  background: #fff;
-  height: 230px;
-  border-radius: 5px;
-  box-shadow: 5px 8px 25px 5px #888888;
-  padding: 10px 10px 10px 10px;
-}
+  }
+
   .card:hover {
     width: 13%;
     margin: 10px 10px 10px 10px;

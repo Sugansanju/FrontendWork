@@ -13,7 +13,6 @@
           <div class="card card-style">
             <div class="card-body text-center">
               <form @submit.prevent="login(user)">
-                 <!-- @keyup.enter="$event.target.nextElementSibling.focus()" -->
         <input  class="form-control input"
                 type="text"
                 autofocus
@@ -44,7 +43,7 @@
               <div class="col-md-6"> </div>
                 <div class="col-md-6 float-right">
                   <b-link class="btn" v-b-modal.loginSignupModal>Signup</b-link>
-                  <!-- <button  class="btn btn-1 btn-white" @click="login(user)">login</button> -->
+                  <!-- <button autofocus class="btn btn-1 btn-white"  @keypress.prevent="login(user)">login</button> -->
                     <button autofocus class="btn btn-1 btn-white"  type="submit">login</button>
                      <br>
                  </div>

@@ -9,7 +9,7 @@ import Login from '@/components/Login';
 import Teacher from '@/components/teacher/Index.vue';
 import TeacherClass from '@/components/teacher/Class.vue';
 import Institute from '@/components/Institute';
-import Class from '@/components/Class';
+import Class from '@/components/teacher/Class';
 
 Vue.use(VueRouter);
 
@@ -35,9 +35,10 @@ const routes = [
     component: HelloWorld
   },
   {
-    path: '/teacher',
+    path: '/teacher/:instituteId',
     name: 'Teacher',
     component: Teacher,
+    props: true,
     // meta: {
     //   requiresAuth: true
     // }
@@ -52,9 +53,9 @@ const routes = [
     path: '/teacher/class',
     name: 'TeacherClass',
     component: TeacherClass,
-    meta: {
-      requiresAuth: true
-    }
+    // meta: {
+    //   requiresAuth: true
+    // }
   },
   {
     path: '/institute',
@@ -62,9 +63,10 @@ const routes = [
     component: Institute
   },
   {
-    path: '/class',
+    path: '/teacher/:instituteId/class',
     name: 'Class',
-    component:Class
+    component:Class,
+    props: true,
   }
 ];
 const router = new VueRouter({ routes });

@@ -4,17 +4,17 @@
     <div class="dropbtn">
       <b-img :src="'/static/images/'+selectedAvatar"></b-img>
       <i class="fa fa-caret-down" style="color: #999; position: absolute; margin-left: 30px"></i>
-    </div>  
+    </div>
   <div class="dropdown-content">
       <b-container>
           <b-row>
               <b-col>
-                <a class="btn" href="#" v-for="avatar in avatars" v-bind:key="avatar" @click="selectedAvatar=avatar"><b-img :src="'/static/images/'+avatar"></b-img></a>                
+                <a class="btn"  v-for="avatar in avatars" v-bind:key="avatar" @click="selectedAvatar=avatar"><b-img :src="'/static/images/'+avatar"></b-img></a>
               </b-col>
           </b-row>
       </b-container>
   </div>
-</div>        
+</div>
 </b-container>
 </template>
 <script>
@@ -25,7 +25,7 @@ export default {
         this.selectedAvatar=this.defaultAvatar;
     },
     data: function(){
-        return{            
+        return{
             selectedAvatar:'',
         }
     }
@@ -51,7 +51,7 @@ export default {
     background-color: #f9f9f9;
     width: 275px;
     height: 150%;
-    overflow-y: scroll; 
+    overflow-y: scroll;
     overflow-x: hidden;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 5px;
@@ -69,6 +69,6 @@ export default {
 
  .dropdown:hover .dropbtn {
     background-color: #f1f1f1;
-} 
+}
 </style>
 

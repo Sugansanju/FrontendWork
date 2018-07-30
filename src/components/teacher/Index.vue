@@ -31,8 +31,9 @@
   import StoryCategories from "@/components/comp/StoryCategories.vue";
   import Global from "@/services/api/Global";
   import AccountApi from "@/services/api/Account";
-  export default {
+  export default {    
     name: "Story",
+    props:['instituteId'],
     components: {
       MainHeader,
       CoverBanner,
@@ -43,11 +44,11 @@
       Stories,
       StoryCategories
     },
-    data() {
+    data() {      
       return {
         menuItems:[
-            {name: 'Stories', link:'#/teacher', icon: 'fa fa-newspaper-o', active: 'active'},
-            {name: 'Class', link:'#/class', icon: 'fa fa-users', active: ''},
+            {name: 'Stories', link:'#/teacher/'+this.instituteId, icon: 'fa fa-newspaper-o', active: 'active'},
+            {name: 'Class', link:'#/teacher/'+this.instituteId+'/class', icon: 'fa fa-users', active: ''},
             {name: 'Staff', link:'#', icon: 'fa fa-user-o', active: ''},
             {name: 'Student', link:'#', icon: 'fa fa-graduation-cap', active: ''},
             {name: 'Event', link:'#', icon: 'fa fa-calendar-o', active: ''},

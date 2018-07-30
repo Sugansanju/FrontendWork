@@ -1,23 +1,19 @@
+
 <template>
 <div style="padding-bottom: 100px">
 <main-header :currentUser="currentUser"></main-header>
-<!-- <main-header></main-header> -->
     <page-footer></page-footer>
     <b-container >
-      <b-row style="margin-top:30px;">
-        <institute-card v-for="detail in details" :details="detail" v-bind:key="detail.id" ></institute-card>
-        
-      </b-row>
-<b-col cols="4">
-           <div class="institute-card">
-              <b-row>
+      <!-- <b-row style="margin-top:30px;"> -->
+        <institute-card v-for="detail in details" :details="detail" v-bind:key="detail.id"></institute-card>
+       <!-- </b-row> -->
+            <b-col cols="4">
+             <div class="institute-card">
                <b-col align-self="center" >
                   <b-link class="btn" v-b-modal.instituteModal> <i class="fa fa-plus-circle fa-3x icon" aria-hidden="true" ></i></b-link>
                </b-col>
-            </b-row>
              </div>
-          </b-col>      
-            <!-- <button @click="getInstitutes">API</button> -->
+            </b-col>
     </b-container>
   <institute-modal></institute-modal>
 </div>
@@ -47,17 +43,17 @@ export default {
   mounted(){
 
     //  location.reload=this.onPageRefresh;
-  },  
-  async mounted(){  
+  },
+  async mounted(){
       console.log("Getting refresh token");
-      await Global.onPageRefresh(this.$session);         
+      await Global.onPageRefresh(this.$session);
       console.log("Getting User info");
-      await this.getUserInfo();         
+      await this.getUserInfo();
       console.log("Getting Institutes");
-      await this.getInstitutes();           
-  },  
+      await this.getInstitutes();
+  },
   methods: {
-  
+
     getInstitutes() {
       return new Promise((resolve, reject)=>{
         var uuid=null;
@@ -69,7 +65,8 @@ export default {
         InstituteApi.getInstituteDetails(uuid)
         .then(response => {
           console.log("response", response);
-          this.$store.dispatch("addInstituteDetail", response.data); 
+          // this.$store.dispatch("addInstituteDetail",null);
+          this.$store.dispatch("addInstituteDetail", response.data);
           resolve(response);
         })
         .catch(err=>{
@@ -85,7 +82,7 @@ export default {
           .then(reponse => {
             this.$session.set("current_user", reponse.data);
             this.currentUser=reponse.data;
-            console.log("Current user in session",this.$session.get("current_user"));            
+            console.log("Current user in session",this.$session.get("current_user"));
             resolve(reponse);
           })
           .catch(err => {
@@ -93,8 +90,8 @@ export default {
             reject(err);
           });
       }
-      });    
-    },        
+      });
+    },
   },
 };
 </script>
@@ -108,9 +105,11 @@ export default {
 }
 .institute-card {
   background: #fff;
-  height: 150px;
   /* width:350px; */
-  border-radius: 5px;
+  /* width:34%; */
+  margin-top:45px;
+  height: 150px;
+  border-radius:9px;
   box-shadow: 5px 8px 25px 5px #888888;
   padding: 10px 10px 10px 10px;
 }

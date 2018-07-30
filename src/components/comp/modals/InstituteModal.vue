@@ -8,6 +8,7 @@
     centered
     v-model="showInstituteModal">
         <b-container fluid>
+          <form @submit.prevent="createInstitute">
             <b-row>
                 <b-col>
                 <button type="button" class="close" @click="showInstituteModal=false" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
@@ -19,9 +20,7 @@
                 <b-col>
 <b-tabs>
   <b-tab title="ADD INSTITUTE">
-       <form @submit.prevent="createInstitute(instituteData)">
       <b-container fluid style="margin-top: 50px;">
-
           <b-row>
               <b-col>
                 <div class="input-group mb-3">
@@ -32,16 +31,14 @@
                 </div>
                   <input type="text"
                          class="form-control"
-                      autofocus
                          placeholder="Institute Name"
-
                          v-model="instituteData.name"
                          style="border-radius:  0px 50px 50px 0px;"
                          v-bind:class="{error: $v.instituteData.name.$error, valid: $v.instituteData.name.$dirty && !$v.instituteData.name.$invalid}">
                 </div>
                 <div class="mb-3" v-if="$v.instituteData.name.$dirty">
                   <p class="error-message" v-if="!$v.instituteData.name.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.instituteData.name.validateInstitute">Invalid inpo</p>
+                  <p class="error-message" v-if="!$v.instituteData.name.validateInstitute">Invalid </p>
            </div>
               </b-col>
           </b-row>
@@ -62,7 +59,7 @@
                 </div>
                  <div class="mb-3" v-if="$v.instituteData.address.street.$dirty">
                   <p class="error-message" v-if="!$v.instituteData.address.street.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.instituteData.address.street.validateInstitute">Invalid inpo</p>
+                   <p class="error-message" v-if="!$v.instituteData.address.street.validateInstitute">Invalid </p>
                 </div>
               </b-col>
           </b-row>
@@ -83,7 +80,7 @@
                 </div>
                 <div class="mb-3" v-if="$v.instituteData.address.city.$dirty">
                   <p class="error-message" v-if="!$v.instituteData.address.city.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.instituteData.address.city.validateInstitute">Invalid inpo</p>
+                    <p class="error-message" v-if="!$v.instituteData.address.city.validateInstitute">Invalid </p>
                 </div>
               </b-col>
           </b-row>
@@ -104,7 +101,7 @@
                 </div>
                  <div class="mb-3" v-if="$v.instituteData.address.state.$dirty">
                   <p class="error-message" v-if="!$v.instituteData.address.state.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.instituteData.address.state.validateInstitute">Invalid inpo</p>
+                    <p class="error-message" v-if="!$v.instituteData.address.state.validateInstitute">Invalid </p>
                 </div>
               </b-col>
           </b-row>
@@ -125,7 +122,7 @@
                 </div>
                  <div class="mb-3" v-if="$v.instituteData.address.country.$dirty">
                   <p class="error-message" v-if="!$v.instituteData.address.country.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.instituteData.address.country.validateInstitute">Invalid inpo</p>
+                    <p class="error-message" v-if="!$v.instituteData.address.country.validateInstitute">Invalid </p>
                 </div>
               </b-col>
           </b-row>
@@ -146,8 +143,8 @@
                 </div>
                  <div class="mb-3" v-if="$v.instituteData.address.zipcode.$dirty">
                   <p class="error-message" v-if="!$v.instituteData.address.zipcode.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.instituteData.address.zipcode.numeric">only numeric values</p>
-                  <p class="error-message" v-if="!$v.instituteData.address.zipcode.minLength">minimum 4 numbers</p>
+                    <p class="error-message" v-if="!$v.instituteData.address.zipcode.numeric">Invalid</p>
+                    <p class="error-message" v-if="!$v.instituteData.address.zipcode.minLength">minimum numbers</p>
                 </div>
               </b-col>
           </b-row>
@@ -167,7 +164,7 @@
                 </div>
                  <div class="mb-3" v-if="$v.instituteData.type.$dirty">
                   <p class="error-message" v-if="!$v.instituteData.type.required">Field is required</p>
-                  <p class="error-message" v-if="!$v.instituteData.type.validateInstitute">Invalid inpo</p>
+                  <p class="error-message" v-if="!$v.instituteData.type.validateInstitute">Invalid </p>
                 </div>
               </b-col>
           </b-row>
@@ -179,18 +176,20 @@
             <b-col>
                 <hr>
                   <div class="float-right">
-                    <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
+                    <!-- <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button> -->
+                    <button class="btn btn-1 border"  style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
                     <!-- <a class="btn btn-1 btn-2 px-2" disabled="$v.instituteData.$error"  @click="createInstitute">Add</a> -->
-                    <button autofocus class="btn btn-1 btn-2 btn-white" type="submit">Add</button>
+                     <button autofocus type="submit" class="btn btn-1 btn-2 px-2">Add</button>
                   </div>
             </b-col>
           </b-row>
+
       </b-container>
-       </form>
   </b-tab>
   </b-tabs>
   </b-col>
   </b-row>
+   </form>
   </b-container>
   </b-modal>
   <b-col>
@@ -205,14 +204,14 @@
 import {addInstitute} from "@/store/index";
 import InstituteApi from "@/services/api/Institute";
 import InstituteCard from '@/components/comp/cards/InstituteCard.vue';
-import {numeric,required,minLength} from "vuelidate/lib/validators";
+import {numeric,minLength,required} from "vuelidate/lib/validators";
 import validateInstitute from "@/validator/ValidateInstitute";
 export default {
   name: "InstituteModal",
   components:{
         InstituteCard
   },
-   validations: {
+    validations: {
     instituteData: {
       name: {
         validateInstitute,
@@ -254,6 +253,16 @@ export default {
     }
    },
   methods: {
+    clearInstituteData () {
+      this.instituteData.name = '';
+      this.instituteData.type='';
+      this.instituteData.address.street = '';
+      this.instituteData.address.city = '';
+      this.instituteData.address.state = '';
+      this.instituteData.address.country = '';
+      this.instituteData.address.zipcode = '';
+      this.$v.$reset();
+    },
     async createInstitute(instituteData) {
        this.$v.$touch();
       if (this.$v.$invalid) {
@@ -264,26 +273,18 @@ export default {
         await InstituteApi.createInstitute(uuid,this.instituteData)
           .then(response => {
             console.log(response);
-            this.clearInstituteData();
+                   this.clearInstituteData();
             this.showInstituteModal=false;
+            // this.getInstitutes();
             window.location.reload();
           })
           .catch(err => {
             console.log(err);
             createInstitute(instituteData);
+            // return false;
           });
 
     }
-    },
-        clearInstituteData () {
-      this.instituteData.name = '';
-      this.instituteData.type='';
-      this.instituteData.address.street = '';
-      this.instituteData.address.city = '';
-      this.instituteData.address.state = '';
-      this.instituteData.address.country = '';
-      this.instituteData.address.zipcode = '';
-      this.$v.$reset();
     },
     // getInstitutes:function(){
     //   let uuid=this.$session.get("current_user").id;
@@ -293,10 +294,10 @@ export default {
     //     this.$store.dispatch('addInstituteDetail',response.data)
     //   })
     // },
-    cancel:function(){
-      this.showInstituteModal=false;
-      this.clearInstituteData();
-    },
+    // cancel:function(){
+    //   this.showInstituteModal=false;
+    //   this.clearInstituteData();
+    // },
 
   },
   data: function() {
@@ -317,6 +318,7 @@ export default {
     };
   }
    }
+// };
 </script>
 <style>
 a {

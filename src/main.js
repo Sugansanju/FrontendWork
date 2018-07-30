@@ -34,7 +34,7 @@ Vue.config.productionTip = false;
 import axios from 'axios';
 // axios.defaults.baseURL = 'http://localhost:9898';
 axios.defaults.baseURL = 'http://51.15.68.75';
-// if (this.$session.exists("access_token")) {  
+// if (this.$session.exists("access_token")) {
   // axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.store.state.access_token;
 // }
 window.axios = axios;

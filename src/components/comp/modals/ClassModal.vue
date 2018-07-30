@@ -10,8 +10,6 @@
         <b-container fluid>
             <b-row>
                 <b-col>
-                <!-- <img src="/static/images/logo.png" float-center> -->
-                Demo Class
                 <button type="button" class="close" @click="showClassModal=false" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -21,7 +19,7 @@
                 <b-col>
                   <b-tabs>
                     <b-tab title="Class">
-                        <class-tab></class-tab>
+                        <class-tab :instituteId="instituteId"></class-tab>
                     </b-tab>
 
                   </b-tabs>
@@ -35,6 +33,7 @@
 import ClassTab from "@/components/comp/modals/tabs/ClassTab.vue";
 export default {
     name: 'ClassModal',
+    props:['instituteId'],
     components:{
         ClassTab,
 

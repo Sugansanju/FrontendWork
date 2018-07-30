@@ -1,17 +1,17 @@
 <template>
 <b-container fluid>
-    <b-form @submit.prevent="onSubmit">
+    <b-form>
     <b-row style="margin-top: 25px; ">
         <b-col>
-            <avatar-selector :avatars="avatars" :default-avatar="defaultAvatar" v-model="classroomAvatar"></avatar-selector>
+            <avatar-selector :avatars="avatars" :default-avatar="defaultAvatar"></avatar-selector>
         </b-col>
     </b-row>
     <b-row style="padding-top: 25px;">
         <b-col>
-            <span>Name</span>
+            <span>Class Name</span>
         </b-col>
         <b-col cols="8">
-            <b-form-input id="classroomName" v-model="classroomName"  style="text-align:left;" type="text" required></b-form-input>
+            <b-form-input id="classroomName" v-model="classroomName"  type="text" required></b-form-input>
         </b-col>
     </b-row>
     <b-row  style="padding-top: 25px;">
@@ -31,7 +31,7 @@
         <hr>
         <div class="float-right">
             <button class="btn btn-1 border" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Reset</button>
-            <button type="submit" class="btn btn-1 btn-2 px-2">Save</button>
+            <button class="btn btn-1 btn-2 px-2">Add</button>
         </div>
         </b-col>
     </b-row>
@@ -40,17 +40,14 @@
 </template>
 <script>
 import AvatarSelector from "@/components/comp/misc/AvatarSelector.vue";
-import ClazzApi from "@/services/api/Clazz";
 export default {
-    name: 'ClassTab',
-    props:['instituteId'],
+    name: 'AddClassTab',
     components:{
         AvatarSelector,
     },
     data:function(){
         return{
             defaultAvatar: 'physics.png',
-            title:'Demo Class',
             avatars:[
                 'physics.png',
                 'chemistry.png',
@@ -76,29 +73,10 @@ export default {
                 {value: 11, text: 'Year 11'},
                 {value: 12, text: 'Year 12'},
             ],
-            classroomAvatar:'',
             classroomName:'',
             classroomYear:0,
         }
-    },
-    methods:{
-        onSubmit(){
-            // alert('Hello World');
-            let data={
-                "name" : this.classroomName,
-                "avatar" : this.classroomAvatar,
-                "year" : this.classroomYear,
-            };
-            ClazzApi.createClazz(this.instituteId, data)
-            .then((response)=>{
-                console.log(response);
-                 window.location.reload();
-            }).catch((err)=>{
-                console.log(err);
-            });
-        }
     }
-
 }
 </script>
 
