@@ -33,7 +33,7 @@
           </b-col> -->
             <!-- <button @click="getInstitutes">API</button> -->
     </b-container>
-  <class-modal :instituteId="instituteId"></class-modal>
+  <class-modal :instituteId="instituteId" @createClazz="createClazzes"></class-modal>
 </div>
 </template>
 <script>
@@ -98,14 +98,17 @@ export default {
     await this.getClazzes(this.instituteId);
   },
   methods: {
+    createClazzes(data){
+        ClazzApi.createClazz(this.instituteId, data)
+            .then((response)=>{
+                console.log(response);
+                this.getClazzes(instituteId);
+            }).catch((err)=>{
+                console.log(err);
+            });
+    },
     getClazzes(instituteId) {
       return new Promise((resolve, reject)=>{
-/*         var uuid=null;
-        if(this.$session.exists("current_user")){
-          let user=this.$session.get("current_user");
-          console.log('The User is ', user);
-          uuid = user.id;
-        } */
         ClazzApi.getClazzDetails(instituteId)
         .then(response => {
           console.log("response", response);

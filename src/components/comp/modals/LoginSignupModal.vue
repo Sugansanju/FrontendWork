@@ -21,7 +21,7 @@
                 <b-col>
 <b-tabs>
   <b-tab @click="clearUserData" title="Login">
-     <form @submit.prevent="login(user)">
+     <form @submit.prevent="login">
       <b-container fluid style="margin-top: 50px;">
           <b-row>
               <b-col>
@@ -85,7 +85,7 @@
      </form>
   </b-tab>
   <b-tab @click="clearUserData" title="Signup" active>
-    <form @submit.prevent="signup(user)">
+    <form @submit.prevent="signup">
       <b-container fluid style="margin-top: 50px;">
           <b-row>
               <b-col>
@@ -204,87 +204,80 @@ export default {
           });
       }
     },
-    login: function(user) {
+    login: function() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         console.log("error");
       } else {
-        AccountApi.login(user)
-          .then(response => {
-            console.log(response);
-            this.$session.start();
-            this.$session.set("access_token", response.data.access_token);
-            this.$session.set("refresh_token", response.data.refresh_token);
-            this.$session.set("contact", user.contact);
-            const toast = swal.mixin({
-              toast: true,
-              position: "top",
-              showConfirmButton: false,
-              timer: 8000
-            });
-            toast({
-              type: "success",
-              title: "Signed in successfully"
-            });
-            // this.getUserInfo();
-            this.$router.replace(this.$route.query.redirect || "/institute");
-          })
-          .catch(err => {
-            console.log(err);
-            swal({
-              type: "error",
-              title: "Bad credentials"
-            });
-            return false;
-          });
-      }
-    },
-    signup: function(user) {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        console.log("error");
-      } else {
-        axios({
-          method: "post",
-          url: "account/register",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          data: {
-            contact: user.contact,
-            password: user.password
-          }
-        })
-          .then(result => {
-            const toast = swal.mixin({
-              toast: true,
-              position: "top",
-              showConfirmButton: false,
-              timer: 5000
-            });
-            toast({
-              type: "success",
-              title: "Register successfully"
-            });
+            let data={
+              "contact":this.user.contact,
+              "password":this.user.password
+            };
+            this.$emit("login",data);
             this.showLoginSignupModal = false;
             this.clearUserData();
-            console.log(result);
-          })
-          .catch(err => {
-            const toast = swal.mixin({
-              toast: true,
-              position: "top",
-              showConfirmButton: false,
-              timer: 5000
-            });
-            toast({
-              type: "error",
-              title: "Username/Mail-id/Mobile-no Already Exists"
-            });
-            console.log(err);
-          });
       }
     },
+    signup:function(){
+        this.$v.$touch();
+      if (this.$v.$invalid) {
+        console.log("error");
+      } else {
+        let data={
+            "contact":this.user.contact,
+            "password":this.user.password
+        };
+         this.$emit("signup",data);
+         this.showLoginSignupModal = false;
+         this.clearUserData();
+      }
+    },
+    // signup: function(user) {
+    //   this.$v.$touch();
+    //   if (this.$v.$invalid) {
+    //     console.log("error");
+    //   } else {
+    //     axios({
+    //       method: "post",
+    //       url: "account/register",
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       },
+    //       data: {
+    //         contact: user.contact,
+    //         password: user.password
+    //       }
+    //     })
+    //       .then(result => {
+    //         const toast = swal.mixin({
+    //           toast: true,
+    //           position: "top",
+    //           showConfirmButton: false,
+    //           timer: 5000
+    //         });
+    //         toast({
+    //           type: "success",
+    //           title: "Register successfully"
+    //         });
+    //         this.showLoginSignupModal = false;
+    //         this.clearUserData();
+    //         console.log(result);
+    //       })
+    //       .catch(err => {
+    //         const toast = swal.mixin({
+    //           toast: true,
+    //           position: "top",
+    //           showConfirmButton: false,
+    //           timer: 5000
+    //         });
+    //         toast({
+    //           type: "error",
+    //           title: "Username/Mail-id/Mobile-no Already Exists"
+    //         });
+    //         console.log(err);
+    //       });
+    //   }
+    // },
     cancel() {
       this.showLoginSignupModal = false;
       this.clearUserData();

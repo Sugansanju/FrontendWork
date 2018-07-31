@@ -7,13 +7,13 @@
       <b-collapse is-nav id="nav_collapse" v-if="$session.exists('current_user')">
         <b-navbar-nav class="ml-auto">
         <b-nav-item>
-          <a href="#" class="notification-counter" data-counter="51" >
+          <a href="#" class="notification-counter" data-counter="0" >
             <span class="fa fa-bell-o" color="red"></span>
           </a>
         </b-nav-item>
           <b-nav-item-dropdown right>
             <template slot="button-content" v-if="currentUser!=null">
-              <b-img src="/static/images/img1.png" width="35px" height="35px" />
+              <b-img src="/static/images/userimg3.png" width="35px" height="35px" />
                {{currentUser.username!=null?currentUser.username:(currentUser.email!=null?currentUser.email:User)}}
             </template>
             <b-dropdown-item v-b-modal.profileSettingsModal>
@@ -46,7 +46,7 @@ import AccountApi from "@/services/api/Account"
       return{
         // currentUser:null,
       }
-    }, 
+    },
     methods:{
       logout: function(){
         const toast = swal.mixin({

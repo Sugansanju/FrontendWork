@@ -85,19 +85,13 @@ export default {
     },
     methods:{
         onSubmit(){
-            // alert('Hello World');
             let data={
                 "name" : this.classroomName,
                 "avatar" : this.classroomAvatar,
                 "year" : this.classroomYear,
             };
-            ClazzApi.createClazz(this.instituteId, data)
-            .then((response)=>{
-                console.log(response);
-                 window.location.reload();
-            }).catch((err)=>{
-                console.log(err);
-            });
+            this.$emit("createClazz",data);
+            this.showClassSettingsModal=false;
         }
     }
 

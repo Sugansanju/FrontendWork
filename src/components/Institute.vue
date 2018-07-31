@@ -15,7 +15,7 @@
              </div>
             </b-col>
     </b-container>
-  <institute-modal></institute-modal>
+  <institute-modal @submitted="createInstitute"></institute-modal>
 </div>
 </template>
 <script>
@@ -25,7 +25,14 @@ import InstituteModal from "@/components/comp/modals/InstituteModal.vue";
 import InstituteApi from "@/services/api/Institute";
 import AccountApi from "@/services/api/Account";
 import Global from "@/services/api/Global";
+import swal from "sweetalert2";
 import InstituteCard from "@/components/comp/cards/InstituteCard.vue";
+const toast = swal.mixin({
+              toast: true,
+              position: "top",
+              showConfirmButton: false,
+              timer: 5000
+   });
 export default {
   name: "Institute",
   components: {
@@ -54,6 +61,57 @@ export default {
   },
   methods: {
 
+   // async createInstitute() {
+    //   this.$v.$touch();
+    //   if (this.$v.$invalid) {
+    //     console.log("error");
+    //   } else {
+    //     console.log("one time..");
+    //     let uuid = this.$session.get("current_user").id;
+    //     await InstituteApi.createInstitute(uuid, this.instituteData)
+    //       .then(response => {
+    //         console.log(response);
+    //         this.clearInstituteData();
+    //         this.showInstituteModal = false;
+    //         this.$emit("clicked",response.data);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //         createInstitute(instituteData);
+    //         const toast = swal.mixin({
+    //           toast: true,
+    //           position: "top",
+    //           showConfirmButton: false,
+    //           timer: 8000
+    //         });
+    //         toast({
+    //           type: "error",
+    //           title: "Error"
+    //         });
+    //         // return false;
+    //       });
+    //   }
+    // }
+    createInstitute(data){
+      console.log("modal created",data);
+        let uuid = this.$session.get("current_user").id;
+        InstituteApi.createInstitute(uuid, data)
+          .then(response => {
+            console.log(response);
+            toast({
+              type: "success",
+              title: "Institute Creation Successfully"
+            });
+            this.getInstitutes();
+          })
+          .catch(err => {
+            console.log(err);
+            toast({
+              type: "success",
+              title: "Institute Creation Failed"
+            });
+          });
+    },
     getInstitutes() {
       return new Promise((resolve, reject)=>{
         var uuid=null;

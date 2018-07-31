@@ -1,74 +1,249 @@
 <template>
-    <div class="card">
-        <div class="d-flex justify-content-end" style="margin-top:2px;padding-right:10px;">
-        <a><i class="fa fa-cog" style="color: #999"></i></a>
+
+<div>
+    <b-col cols="4">
+       <div v-for="item in details" v-bind:key="item.instituteId">
+         <div class="institute-card">
+            <b-row>
+               <b-col offset="10" style="margin-top:-20px;">
+                  <b-dropdown variant="link" size="lg" no-caret>
+                   <template slot="button-content">
+                     <i class="fa fa-cogs primary" aria-hidden="true"></i>
+                    </template>
+                      <b-dropdown-item v-b-modal.instituteModal>
+                      <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                    </b-dropdown-item>
+                    <b-dropdown-item @click="deleteDetails">
+                      <i class="fa fa-trash" aria-hidden="true" > </i> Delete
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </b-col>
+            </b-row>
+          <b-row class="content" @click="redirect(item.instituteId)">
+<div class="institute-card col-4">
+          <b-row>
+            <b-col offset="10" style="margin-top:-15px;">
+              <b-dropdown variant="link" size="lg" no-caret>
+                <template slot="button-content">
+                    <i class="fa fa-cogs primary" aria-hidden="true"></i>
+                </template>
+              <!-- <b-dropdown-item v-b-modal.profileSettingsModal> -->
+                <b-dropdown-item v-b-modal.instituteModal>
+                  <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                </b-dropdown-item>
+                <b-dropdown-item @click="deleteDetails">
+                  <i class="fa fa-trash" aria-hidden="true" > </i> Delete
+                </b-dropdown-item>
+              </b-dropdown>
+             </b-col>
+          </b-row>
+          <b-row class="content" @click="redirect(id)">
+              <div class="institute-img">
+                <b-img src="/static/images/institute-building.png" />
+                 <!-- <b-img :src="'/static/images/'+item.image"/> -->
+              </div>
+              <div> <h1>{{item.name}}</h1></div>
+             <b-row>
+              <div class="staff-stats">
+                  <strong>{{item.nostaff}}</strong>
+                  <br> Staff
+              </div>
+              <div class="parent-stats">
+                  <strong>{{item.nostudent}}</strong>
+                  <br> Student
+              </div>
+              <div class="student-stats">
+                  <strong>{{item.noparent}}</strong>
+                  <br> Parent
+              </div>
+           </b-row>
+         </b-row>
+        <b-row align-h="end" style="padding-right:10px;">
+          <div class="feeds-badge">
+              <div class="feeds-bubble">
+                  <span class="bubble-field">{{item.feedscount}}</span>
+              </div>
+          </div>
+          <div class="chats-badge">
+              <div class="chats-bubble">
+                  <span class="bubble-field">{{item.chatscount}}</span>
+              </div>
+          </div>
+          <div class="likes-badge">
+              <div class="likes-bubble">
+                  <span class="bubble-field">{{item.likescount}}</span>
+              </div>
+          </div>
+         </b-row>
         </div>
-        <div class="text-center">
-            <img :src="staffImage">
-        </div>
-        <div class="text-center">{{staffName}}</div>
-        <div class="row">
-            <div class="px-5 mt-2">
-                <i class="icon-mu-classroom"></i>
-            </div>
-            <div class="text-center mt-2" style="font-size:10px;margin-left:-40px;">
-                <a>Classes</a>
-                <div class="primary" style="font-size:14px;">
-                    {{classroomsCount}}
+      </div>
+     </b-col>
+      <div> <h1>{{name}}</h1></div>
+              <b-row>
+                <div class="staff-stats">
+                    <strong>{{staffs}}</strong>
+                    <br> Staff
+                </div>
+                <div class="parent-stats">
+                    <strong>{{students}}</strong>
+                    <br> Student
+                </div>
+                <div class="student-stats">
+                    <strong>{{parents}}</strong>
+                    <br> Parent
+                </div>
+              </b-row>
+          <b-row align-h="end" style="padding-right:10px;">
+            <div class="feeds-badge">
+                <div class="feeds-bubble">
+                    <span class="bubble-field">{{feeds}}</span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="px-2" style="font-size:20px;margin-top:16px;">
-                    <i class="icon-mu-parents"></i>
-                </div>
-                <div class="text-center" style="font-size:10px;margin-top:12px;">
-                    <a>Parents</a>
-                    <div class="primary" style="font-size:14px;">
-                        {{parentsCount}}
-                    </div>
-                </div>
-                <div class="px-2" style="font-size:20px;margin-top:16px;">
-                    <i class="icon-mu-student"></i>
-                </div>
-                <div class="text-center" style="font-size:10px;margin-top:12px;">
-                    <a>Students</a>
-                    <div class="primary" style="font-size:14px;">
-                        {{studentsCount}}
-                    </div>
+            <div class="chats-badge">
+                <div class="chats-bubble">
+                    <span class="bubble-field">{{chats}}</span>
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="likes-badge">
+                <div class="likes-bubble">
+                    <span class="bubble-field">{{likes}}</span>
+                </div>
+            </div>
+        </b-row>
+      </div>
+
 </template>
 <script>
 export default {
-    name: 'StaffCard',
-     props: ['staffImage', 'staffName', 'classroomsCount', 'parentsCount', 'studentsCount'],
-    data:function () {
-        return{
-
-        }
+  name: "InstituteCard",
+  props: ["id", ,"name", "staffs", "students","parents", "feeds", "likes", "chats"],
+  data() {
+    return {};
+  },
+  methods: {
+    redirect: function(instituteId) {
+      this.$router.replace(
+        this.$route.query.redirect || "/teacher/" + instituteId
+      );
+    },
+    deleteDetails: function() {
+      alert("Institute Deleted");
     }
-}
+  }
+};
 </script>
-<style scoped>
-.card{
-    width: 14%; 
-    margin: 10px 10px 10px 10px; 
-    padding: 5px 5px 5px 5px; 
-    text-align: left; 
-    border-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    transition: all 0.3s ease-in-out;    
+<style>
+.primary {
+  color: var(--main-primary-color);
 }
-.card:hover{
-    width: 14%; 
-    margin: 10px 10px 10px 10px; 
-    padding: 5px 5px 5px 5px; 
-    text-align: left; 
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: opacity 0.3s ease-in-out;
+.content {
+  margin-top: -40px;
+  cursor: pointer;
+}
+.institute-card {
+  background: #fff;
+  /* width:350px; */
+  /* width:50%; */
+  margin-top: 45px;
+
+  margin-top: 45px;
+  /* margin-right: 20px; */
+
+  margin-top: 45px;
+  /* margin-right: 20px; */
+  height: 150px;
+  border-radius: 9px;
+  box-shadow: 5px 8px 25px 5px #888888;
+  padding: 15px 15px 15px 15px;
+}
+.institute-img {
+  margin-left: 10px;
+  margin-top: 13px;
+}
+.institute-card h1 {
+  font-family: "Cabin", sans-serif;
+  font-size: 1.5em;
+  margin-top: 10px;
+  margin-left: 5px;
+  /* width: 100%; */
+  /* overflow: hidden; */
+}
+.feeds-badge {
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  background-image: url("/static/images/feeds-badge.png");
+  background-repeat: no-repeat;
+}
+.likes-badge {
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  background-image: url("/static/images/likes-badge.png");
+  background-repeat: no-repeat;
+}
+.chats-badge {
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  background-image: url("/static/images/chats-badge.png");
+  background-repeat: no-repeat;
+}
+.feeds-bubble {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #f7b90b;
+  margin-left: 50%;
+  text-align: center;
+}
+.likes-bubble {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #3279a7ff;
+  margin-left: 50%;
+  text-align: center;
+}
+.chats-bubble {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #3baf9dff;
+  margin-left: 50%;
+  text-align: center;
+}
+.bubble-field {
+  color: white;
+  margin: auto;
+}
+.staff-stats {
+  color: #f46c5dff;
+  font-family: "Cabin", sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 10px 10px 10px;
+  margin-left: 110px;
+  margin-top: -60px;
+}
+.parent-stats {
+  color: #30445bff;
+  font-family: "Cabin", sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 10px 10px 10px 10px;
+  margin-top: -60px;
+}
+.student-stats {
+  color: #ace1b0ff;
+  font-family: "Cabin", sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 10px 10px 10px 10px;
+  margin-top: -60px;
 }
 </style>

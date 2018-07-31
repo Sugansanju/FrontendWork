@@ -21,7 +21,6 @@
                     <b-tab title="Class">
                         <class-tab :instituteId="instituteId"></class-tab>
                     </b-tab>
-
                   </b-tabs>
                 </b-col>
             </b-row>
@@ -44,7 +43,7 @@ export default {
             classroomName:'',
             classroomYear:0,
         }
-    }
+    },
 };
 </script>
 <style>

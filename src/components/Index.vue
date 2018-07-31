@@ -53,7 +53,7 @@
           </div>
         </b-col>
       </b-row>
-      <login-signup-modal></login-signup-modal>
+      <login-signup-modal @signup="userSignup" @login="userLogin"></login-signup-modal>
     </b-container>
 
   </div>
@@ -68,6 +68,12 @@ import AccountApi from "@/services/api/Account";
 import swal from "sweetalert2";
 import { required, minLength} from "vuelidate/lib/validators";
 import validateContact from "@/validator/ValidateContact";
+ const toast = swal.mixin({
+              toast: true,
+              position: "top",
+              showConfirmButton: false,
+              timer: 8000
+            });
 export default {
   name: "Index",
   components: {
@@ -166,6 +172,69 @@ export default {
           });
       }
     },
+    userSignup(data){
+        console.log("user signed up");
+      axios({
+          method: "post",
+          url: "account/register",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          data:{
+            contact: data.contact,
+            password: data.password
+          }
+        })
+          .then(result => {
+            const toast = swal.mixin({
+              toast: true,
+              position: "top",
+              showConfirmButton: false,
+              timer: 5000
+            });
+            toast({
+              type: "success",
+              title: "Register successfully"
+            });
+            console.log(result);
+          })
+          .catch(err => {
+            const toast = swal.mixin({
+              toast: true,
+              position: "top",
+              showConfirmButton: false,
+              timer: 5000
+            });
+            toast({
+              type: "error",
+              title: "Username/Mail-id/Mobile-no Already Exists"
+            });
+            console.log(err);
+          });
+      },
+      userLogin(data){
+         AccountApi.login(data)
+          .then(response => {
+            console.log(response);
+            this.$session.start();
+            this.$session.set("access_token", response.data.access_token);
+            this.$session.set("refresh_token", response.data.refresh_token);
+            this.$session.set("contact", data.contact);
+            toast({
+              type: "success",
+              title: "Signed in successfully"
+            });
+             this.$router.replace(this.$route.query.redirect || "/institute");
+          })
+          .catch(err => {
+            console.log(err);
+            swal({
+              type: "error",
+              title: "Bad credentials"
+            });
+            return false;
+          });
+      },
     // onPageRefresh: function() {
     //   console.log("Page Refreshing", this.$session.exists("refresh_token"));
     //   if (this.$session.exists("refresh_token")) {
@@ -188,11 +257,10 @@ export default {
   data() {
     return {
       info: null,
-      phone: "",
       user: {
-        contact: "",
-        password: ""
-      }
+        contact: null,
+        password: null
+      },
     };
   }
 };

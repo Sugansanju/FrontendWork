@@ -8,7 +8,7 @@
     centered
     v-model="showInstituteModal">
         <b-container fluid>
-          <form @submit.prevent="createInstitute">
+          <form @submit.prevent="submitted">
             <b-row>
                 <b-col>
                 <button type="button" class="close" @click="showInstituteModal=false" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
@@ -177,7 +177,7 @@
                 <hr>
                   <div class="float-right">
                     <!-- <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button> -->
-                    <a class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</a>
+                    <button class="btn btn-1 border"  style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
                     <!-- <a class="btn btn-1 btn-2 px-2" disabled="$v.instituteData.$error"  @click="createInstitute">Add</a> -->
                      <button autofocus type="submit" class="btn btn-1 btn-2 px-2">Add</button>
                   </div>
@@ -201,91 +201,125 @@
 </template>
 
 <script>
-import {addInstitute} from "@/store/index";
+import { addInstitute } from "@/store/index";
 import InstituteApi from "@/services/api/Institute";
-import InstituteCard from '@/components/comp/cards/InstituteCard.vue';
-import {numeric,minLength,required} from "vuelidate/lib/validators";
+import InstituteCard from "@/components/comp/cards/InstituteCard.vue";
+import { numeric, minLength, required } from "vuelidate/lib/validators";
+import swal from "sweetalert2";
 import validateInstitute from "@/validator/ValidateInstitute";
 export default {
   name: "InstituteModal",
-  components:{
-        InstituteCard
+  components: {
+    InstituteCard
   },
-    validations: {
+  validations: {
     instituteData: {
       name: {
         validateInstitute,
-        required,
-      },
-      address:{
-      street:{
-         validateInstitute,
         required
       },
-      city:{
-         validateInstitute,
-        required
-      },
-      state:{
-         validateInstitute,
-        required
-      },
-      country:{
-        validateInstitute,
-        required
-      },
-      zipcode:{
-        numeric,
-        minLength:minLength(6),
-        required
-      },
-/*       noparent: 0,
+      address: {
+        street: {
+          validateInstitute,
+          required
+        },
+        city: {
+          validateInstitute,
+          required
+        },
+        state: {
+          validateInstitute,
+          required
+        },
+        country: {
+          validateInstitute,
+          required
+        },
+        zipcode: {
+          numeric,
+          minLength: minLength(6),
+          required
+        }
+        /*       noparent: 0,
       nostudent: 0,
       nostaff: 0,
       feedscount: 0,
       chatscount: 0,
       likescount: 0, */
-    },
-    type: {
-      validateInstitute,
-        required,
       },
+      type: {
+        validateInstitute,
+        required
+      }
     }
-   },
+  },
+  mounted(){
+  this.clearInstituteData();
+  },
   methods: {
-    clearInstituteData () {
-      this.instituteData.name = '';
-      this.instituteData.type='';
-      this.instituteData.address.street = '';
-      this.instituteData.address.city = '';
-      this.instituteData.address.state = '';
-      this.instituteData.address.country = '';
-      this.instituteData.address.zipcode = '';
+    clearInstituteData() {
+      this.instituteData.name = "";
+      this.instituteData.type = "";
+      this.instituteData.address.street = "";
+      this.instituteData.address.city = "";
+      this.instituteData.address.state = "";
+      this.instituteData.address.country = "";
+      this.instituteData.address.zipcode = "";
       this.$v.$reset();
     },
-    async createInstitute(instituteData) {
-       this.$v.$touch();
+    submitted(){
+      this.$v.$touch();
       if (this.$v.$invalid) {
         console.log("error");
-      }else{
-      console.log('one time..');
-      let uuid =  this.$session.get("current_user").id;
-        await InstituteApi.createInstitute(uuid,this.instituteData)
-          .then(response => {
-            console.log(response);
-                   this.clearInstituteData();
-            this.showInstituteModal=false;
-            // this.getInstitutes();
-            window.location.reload();
-          })
-          .catch(err => {
-            console.log(err);
-            createInstitute(instituteData);
-            // return false;
-          });
+      } else {
+        let data={
+          "name": this.instituteData.name,
+          "type" : this.instituteData.type,
+          "address":{
+            "street" : this.instituteData.address.street,
+            "city" : this.instituteData.address.city,
+            "state" : this.instituteData.address.state,
+            "country" : this.instituteData.address.country,
+            "zipcode" : this.instituteData.address.zipcode
+          }
+        };
+        this.$emit("submitted",data);
+        this.showInstituteModal = false;
+        this.clearInstituteData();
 
-    }
+      }
     },
+    // async createInstitute() {
+    //   this.$v.$touch();
+    //   if (this.$v.$invalid) {
+    //     console.log("error");
+    //   } else {
+    //     console.log("one time..");
+    //     let uuid = this.$session.get("current_user").id;
+    //     await InstituteApi.createInstitute(uuid, this.instituteData)
+    //       .then(response => {
+    //         console.log(response);
+    //         this.clearInstituteData();
+    //         this.showInstituteModal = false;
+    //         this.$emit("clicked",response.data);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //         createInstitute(instituteData);
+    //         const toast = swal.mixin({
+    //           toast: true,
+    //           position: "top",
+    //           showConfirmButton: false,
+    //           timer: 8000
+    //         });
+    //         toast({
+    //           type: "error",
+    //           title: "Error"
+    //         });
+    //         // return false;
+    //       });
+    //   }
+    // }
     // getInstitutes:function(){
     //   let uuid=this.$session.get("current_user").id;
     //   InstituteApi.getInstituteDetails(uuid)
@@ -294,30 +328,29 @@ export default {
     //     this.$store.dispatch('addInstituteDetail',response.data)
     //   })
     // },
-    cancel:function(){
-      this.showInstituteModal=false;
-      this.clearInstituteData();
-    },
-
+    // cancel:function(){
+    //   this.showInstituteModal=false;
+    //   this.clearInstituteData();
+    // },
   },
   data: function() {
     return {
-       details:[],
-       instituteData:{
-        name:'',
-        address:{
-            street:'',
-            city:'',
-            state:'',
-            country:'',
-            zipcode:''
+      details: [],
+      instituteData: {
+        name: "",
+        address: {
+          street: "",
+          city: "",
+          state: "",
+          country: "",
+          zipcode: ""
         },
-        type:'',
+        type: ""
       },
       showInstituteModal: false
     };
   }
-   }
+};
 // };
 </script>
 <style>
