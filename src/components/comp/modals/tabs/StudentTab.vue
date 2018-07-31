@@ -1,23 +1,23 @@
 <template>
 <b-container fluid>
     <b-row style="margin-top: 25px; ">
-        <b-col>      
+        <b-col>
             <student-list :listItems="students"></student-list>
         </b-col>
-    </b-row>  
+    </b-row>
     <b-row>
         <b-col>
         <hr>
         <div class="float-right">
             <!-- <button class="btn btn-1 border" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Reset</button> -->
             <button class="btn btn-1 btn-2 px-2" @click="showClassSettingsModal=false">Close</button>
-        </div>                  
+        </div>
         </b-col>
-    </b-row>     
-</b-container>    
+    </b-row>
+</b-container>
 </template>
 <script>
-import StudentList from "@/components/comp/misc/StudentList.vue";  
+import StudentList from "@/components/comp/misc/StudentList.vue";
 export default {
     name: 'StudentTab',
     components:{

@@ -1,23 +1,23 @@
 <template>
 <b-container fluid>
     <b-row style="margin-top: 25px; ">
-        <b-col>      
+        <b-col>
             <teacher-list :listItems="teachers"></teacher-list>
         </b-col>
-    </b-row>  
+    </b-row>
     <b-row>
         <b-col>
         <hr>
         <div class="float-right">
             <!-- <button class="btn btn-1 border" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Reset</button> -->
             <button class="btn btn-1 btn-2 px-2" @click="showClassSettingsModal=false">Close</button>
-        </div>                  
+        </div>
         </b-col>
-    </b-row>     
-</b-container>    
+    </b-row>
+</b-container>
 </template>
 <script>
-import TeacherList from "@/components/comp/misc/TeacherList.vue";  
+import TeacherList from "@/components/comp/misc/TeacherList.vue";
 export default {
     name: 'TeacherTab',
     components:{
@@ -37,6 +37,11 @@ export default {
                 {image: '09.png', name:'Jeya Pandian', contact:'jeyapandian@example.com'},
             ],
         }
+    },
+    methods:{
+      cancel:function(){
+        this.showClassSettingsModal=false;
+      }
     }
 };
 </script>

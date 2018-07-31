@@ -30,7 +30,7 @@
         <b-col>
         <hr>
         <div class="float-right">
-            <button class="btn btn-1 border" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Reset</button>
+            <a class="btn btn-1 border"  style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Reset</a>
             <button type="submit" class="btn btn-1 btn-2 px-2">Save</button>
         </div>
         </b-col>
@@ -39,6 +39,7 @@
 </b-container>
 </template>
 <script>
+import ClassSettingsModal from "@/components/comp/modals/ClassSettingsModal.vue"
 import AvatarSelector from "@/components/comp/misc/AvatarSelector.vue";
 import ClazzApi from "@/services/api/Clazz";
 export default {
@@ -46,6 +47,7 @@ export default {
     props:['instituteId'],
     components:{
         AvatarSelector,
+        ClassSettingsModal
     },
     data:function(){
         return{

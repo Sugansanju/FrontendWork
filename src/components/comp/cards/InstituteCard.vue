@@ -4,7 +4,7 @@
        <div v-for="item in details" v-bind:key="item.instituteId">
          <div class="institute-card">
             <b-row>
-               <b-col offset="10" style="margin-top:-15px;">
+               <b-col offset="10" style="margin-top:-20px;">
                   <b-dropdown variant="link" size="lg" no-caret>
                    <template slot="button-content">
                      <i class="fa fa-cogs primary" aria-hidden="true"></i>
@@ -96,7 +96,7 @@ export default {
   height: 150px;
   border-radius: 9px;
   box-shadow: 5px 8px 25px 5px #888888;
-  padding: 10px 10px 10px 10px;
+  padding: 15px 15px 15px 15px;
 }
 .institute-img {
   margin-left: 10px;

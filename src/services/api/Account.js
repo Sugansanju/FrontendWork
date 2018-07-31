@@ -2,7 +2,7 @@
 
 export default {
 
-  login(user){
+  login(user) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -19,28 +19,31 @@ export default {
         }
       }).then((response) => {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+        localStorage.setItem('isAuthenticated', true);
         resolve(response);
-      }).catch((err)=>{
+      }).catch((err) => {
         reject(err);
       });
     });
 
   },
 
-  getUserInfo(contact){
+  getUserInfo(contact) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
         url: 'user/find/' + contact,
       }).then((response) => {
         resolve(response);
-      }).catch((err)=>{
+      }).catch((err) => {
+        this.$session.destroy();
+        localStorage.setItem('isAuthenticated', false);
         reject(err);
       });
     });
   },
 
-  getAccessToken(refreshToken){
+  getAccessToken(refreshToken) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -57,23 +60,25 @@ export default {
         }
       }).then((response) => {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+        localStorage.setItem('isAuthenticated', true);
         resolve(response);
-      }).catch((err)=>{
+      }).catch((err) => {
         reject(err);
       });
     });
-    
+
   },
-  logout(accessToken){
+  logout(accessToken) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
-        url: 'oauth/token/revokeById/'+ accessToken,
-      }).then((response)=>{
+        url: 'oauth/token/revokeById/' + accessToken,
+      }).then((response) => {
+        localStorage.setItem('isAuthenticated', false);
         resolve(response);
-      }).catch((err)=>{
+      }).catch((err) => {
         reject(err);
       });
-  });
+    });
   }
 }

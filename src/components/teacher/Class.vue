@@ -18,7 +18,6 @@
         >
         {{detail}}
         </class-card>
-
       </b-row>
        <div class="card">
           <b-link class="btn" v-b-modal.classModal> <i class="fa fa-plus-circle fa-3x icon" aria-hidden="true" ></i></b-link>

@@ -11,7 +11,7 @@
             <b-row>
                 <b-col>
                 <img src="/static/images/logo.png" float-center>
-                <button type="button" class="close" @click="showLoginSignupModal=false" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
+                <button type="button" class="close" @click="cancel" aria-label="Close" style="margin-left:25px;margin-top:0px;" float-right>
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </b-col>
@@ -21,6 +21,7 @@
                 <b-col>
 <b-tabs>
   <b-tab @click="clearUserData" title="Login">
+     <form @submit.prevent="login(user)">
       <b-container fluid style="margin-top: 50px;">
           <b-row>
               <b-col>
@@ -75,14 +76,16 @@
             <b-col>
                 <hr>
                   <div class="float-right">
-                    <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
-                    <a class="btn btn-1 btn-2 px-2" disabled="$v.user.$error" @click="login(user)">Login</a>
+                    <a class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</a>
+                    <button class="btn btn-1 btn-2 px-2" type="submit">Login</button>
                   </div>
             </b-col>
           </b-row>
       </b-container>
+     </form>
   </b-tab>
   <b-tab @click="clearUserData" title="Signup" active>
+    <form @submit.prevent="signup(user)">
       <b-container fluid style="margin-top: 50px;">
           <b-row>
               <b-col>
@@ -137,8 +140,8 @@
             <b-col>
                 <hr>
                   <div class="float-right">
-                    <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
-                    <a class="btn btn-1 btn-2 px-2" disabled="$v.user.$error" @click="signup(user)">Signup</a>
+                    <a class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</a>
+                    <button class="btn btn-1 btn-2 px-2"  type="submit">Signup</button>
                   </div>
             </b-col>
           </b-row>
@@ -150,6 +153,7 @@
             </b-col>
           </b-row>
       </b-container>
+    </form>
   </b-tab>
 </b-tabs>
                 </b-col>

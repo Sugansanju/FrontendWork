@@ -39,9 +39,9 @@ const routes = [
     name: 'Teacher',
     component: Teacher,
     props: true,
-    // meta: {
-    //   requiresAuth: true
-    // }
+    meta: {
+      requiresAuth: true
+    }
     // access: {
     //   requiresLogin: true,
     //    requiredPermissions: ['teacher'],
@@ -53,32 +53,39 @@ const routes = [
     path: '/teacher/class',
     name: 'TeacherClass',
     component: TeacherClass,
-    // meta: {
-    //   requiresAuth: true
-    // }
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/institute',
     name: 'Institute',
-    component: Institute
+    component: Institute,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/teacher/:instituteId/class',
     name: 'Class',
-    component:Class,
+    component: Class,
     props: true,
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
 const router = new VueRouter({ routes });
-
 router.beforeEach((to, from, next) => {
-  // if (to.matched.some(record => record.meta.requiresAuth) && !Auth.loggedIn) {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  console.log('Checking Logging info...', localStorage.getItem('isAuthenticated'));
+  if (to.matched.some(record => record.meta.requiresAuth) && ((localStorage.getItem('isAuthenticated') == 'false') || (localStorage.getItem('isAuthenticated') == null))) {
+    console.log('Not Authenticated');
+    // if (to.matched.some(record => record.meta.requiresAuth)) {
     next({
       path: '/',
-      // query: {
-      //   redirect: to.fullPath
-      // }
+      query: {
+        redirect: to.fullPath
+      }
     });
   } else {
     next();

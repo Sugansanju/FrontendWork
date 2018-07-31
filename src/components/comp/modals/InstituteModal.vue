@@ -177,7 +177,7 @@
                 <hr>
                   <div class="float-right">
                     <!-- <button class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button> -->
-                    <button class="btn btn-1 border"  style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</button>
+                    <a class="btn btn-1 border" @click="cancel" style="color:var(--main-primary-color);border:2px solid black;margin-right:15px;">Cancel</a>
                     <!-- <a class="btn btn-1 btn-2 px-2" disabled="$v.instituteData.$error"  @click="createInstitute">Add</a> -->
                      <button autofocus type="submit" class="btn btn-1 btn-2 px-2">Add</button>
                   </div>
@@ -294,10 +294,10 @@ export default {
     //     this.$store.dispatch('addInstituteDetail',response.data)
     //   })
     // },
-    // cancel:function(){
-    //   this.showInstituteModal=false;
-    //   this.clearInstituteData();
-    // },
+    cancel:function(){
+      this.showInstituteModal=false;
+      this.clearInstituteData();
+    },
 
   },
   data: function() {
